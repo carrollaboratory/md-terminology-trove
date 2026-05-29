@@ -13,6 +13,7 @@ classes:
     is_a: HasConceptId
     slots:
       - ontology_id
+      - concept_code
       - display
       - definition
       - version # This is a huge mess. I'm not sure how we want to handle this correctly other than a blind string
@@ -31,6 +32,13 @@ slots:
     description: The standardized curie for the term
     required: true
     range: uriorcurie
+    multivalued: false
+    identifier: false
+  concept_code:
+    title: Concept Code
+    description: Identifier as it is defined within the ontology
+    required: true
+    range: string
     multivalued: false
     identifier: false
   dbt_scd_id:

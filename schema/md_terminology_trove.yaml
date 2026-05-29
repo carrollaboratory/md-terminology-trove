@@ -455,6 +455,20 @@ slots:
     range: uriorcurie
     required: true
     multivalued: false
+  concept_code:
+    name: concept_code
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
+    description: Identifier as it is defined within the ontology
+    title: Concept Code
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
+    identifier: false
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    required: true
+    multivalued: false
   dbt_scd_id:
     name: dbt_scd_id
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
@@ -689,6 +703,7 @@ classes:
     is_a: HasConceptId
     slots:
     - ontology_id
+    - concept_code
     - display
     - definition
     - version
@@ -735,7 +750,7 @@ classes:
     class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
 metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
-source_file_date: '2026-05-29T18:50:33'
+source_file_date: '2026-05-29T19:03:00'
 source_file_size: 954
-generation_date: '2026-05-29T18:50:45'
+generation_date: '2026-05-29T19:03:10'
 

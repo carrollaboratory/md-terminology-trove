@@ -1,0 +1,35 @@
+---
+id: https://w3id.org/carrollaboratory/md-terminology-trove
+name: md-terminology-trove
+title: md-terminology-trove
+description: |-
+  Data model that represents the flattened ontologies that are used by MapDragon for annotation.
+license: MIT
+see_also:
+  - https://carrollaboratory.github.io/md-terminology-trove
+
+prefixes:
+  md_terminology_trove: https://w3id.org/carrollaboratory/md-terminology-trove/
+  linkml: https://w3id.org/linkml/
+  biolink: https://w3id.org/biolink/vocab/
+  schema: http://schema.org/
+  PATO: http://purl.obolibrary.org/obo/PATO_
+  example: http://www.example.org/rdf#
+  skos: http://www.w3.org/2004/02/skos/core#
+default_prefix: md_terminology_trove
+default_range: string
+
+imports:
+  - linkml:types
+  - term_ontology
+  - term_concept
+  - term_hierarchy_map
+  - term_cross_reference
+
+classes:
+  HasConceptId:
+    description: >-
+      Base class for all concept tables
+    slots:
+      - concept_id
+    class_uri: schema:Thing

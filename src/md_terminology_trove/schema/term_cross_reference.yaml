@@ -1,0 +1,48 @@
+---
+id: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
+name: md-terminology-trove-term-cross-reference
+imports:
+  - linkml:types
+  - md_terminology_trove
+
+classes:
+  CrossReference:
+    description: >-
+      References to other terms that are encountered during traversal/loading
+    is_a: HasConceptId
+    slots:
+      - target_concept_id
+      - mapping_relationship
+    slot_usage:
+      concept_id:
+        range: TermConcept
+slots:
+  target_concept_id:
+    title: Target Concept ID
+    description: The concept to which this term relates
+    range: TermConcept
+    multivalued: false
+  mapping_relationship:
+    title: Mapping Relationship
+    description: The relationship between the subject (this term) and the object (target_concept_id)
+    range: EnumMappingRelationship
+    multivalued: false
+enums:
+  EnumMappingRelationship:
+    description: SKOS terms for mapping relationships
+    permissible_values:
+      exact_match:
+        description: The two codes can be used interchangeably across almost all systems
+        meaning: skos:exactMatch
+      close_match:
+        description: The two are similar enough to be interchangeable in some contexts, but not all.
+        meaning: skos:closeMatch
+      broad_match:
+        description: The object (target) is a broader/more general concept than the subject (concept_id).
+        meaning: skos:broadMatch
+      narrow_match:
+        description: The object (target) is a narrower/more specific concept than the subject (concept_id).
+        meaning: skos:narrowMatch
+      related_match:
+        description: The two are associated in some way, but not interchangeable.
+        meaning: skos:relatedMatch

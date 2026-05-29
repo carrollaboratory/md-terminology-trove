@@ -1,0 +1,66 @@
+---
+id: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+name: md-terminology-trove-term-concept
+imports:
+  - linkml:types
+  - md_terminology_trove
+
+classes:
+  TermConcept:
+    description: >-
+      Flat table containing the curied codes for all ontological terms used for dataset annotations.
+
+    is_a: HasConceptId
+    slots:
+      - ontology_id
+      - display
+      - definition
+      - version # This is a huge mess. I'm not sure how we want to handle this correctly other than a blind string
+      - dbt_updated_at
+      - dbt_valid_from
+      - dbt_valid_to
+      - dbt_scd_id
+    slot_usage:
+      concept_id:
+        identifier: true
+        range: uriorcurie
+
+slots:
+  concept_id:
+    title: Concept ID
+    description: The standardized curie for the term
+    required: true
+    range: uriorcurie
+    multivalued: false
+    identifier: false
+  dbt_scd_id:
+    range: string
+    description: "Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration."
+    required: false
+  dbt_updated_at:
+    range: datetime
+    description: "The timestamp when the source record was last changed, used by dbt to detect if an update has occurred."
+    required: true
+  dbt_valid_from:
+    range: datetime
+    description: "The timestamp indicating when this specific row's historical version became active."
+    required: true
+  dbt_valid_to:
+    range: datetime
+    description: "The timestamp indicating when this historical version was superseded. It remains NULL if the row is the currently active version."
+    required: false
+  display:
+    title: Display
+    description: The friendly display string of the coded term
+    range: string
+    multivalued: false
+  definition:
+    title: Definition
+    description: Detailed description for the term
+    range: string
+    multivalued: false
+  version:
+    title: Version
+    description: Version associated with the current ontology content
+    range: string
+    multivalued: false

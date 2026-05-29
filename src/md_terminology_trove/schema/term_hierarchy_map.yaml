@@ -1,0 +1,24 @@
+---
+id: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
+name: md-terminology-trove-term-hierarchy-map
+imports:
+  - linkml:types
+  - md_terminology_trove
+
+classes:
+  HierarchyMap:
+    description: >-
+      Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
+
+    is_a: HasConceptId
+    slots:
+      - parent_id
+    slot_usage:
+      concept_id:
+        range: TermConcept
+slots:
+  parent_id:
+    title: Parent ID
+    description: The immediate ancester of the term
+    range: TermConcept
+    multivalued: true

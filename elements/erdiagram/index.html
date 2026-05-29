@@ -204,14 +204,8 @@
 <article class="md-content__inner md-typeset">
 <h1>ER Diagram</h1>
 <pre class="mermaid"><code>erDiagram
-CrossReference {
-    EnumMappingRelationship mapping_relationship  
-}
 HasConceptId {
     uriorcurie concept_id  
-}
-HierarchyMap {
-
 }
 TermConcept {
     uriorcurie concept_id  
@@ -223,6 +217,12 @@ TermConcept {
     string display  
     string version  
 }
+TermCrossReference {
+    EnumMappingRelationship mapping_relationship  
+}
+TermHierarchyMap {
+
+}
 TermOntology {
     string name  
     string description  
@@ -233,11 +233,11 @@ TermOntology {
     string source  
 }
 
-CrossReference ||--|o TermConcept : "target_concept_id"
-CrossReference ||--|| TermConcept : "concept_id"
-HierarchyMap ||--|| TermConcept : "concept_id"
-HierarchyMap ||--}o TermConcept : "parent_id"
 TermConcept ||--|| TermOntology : "ontology_id"
+TermCrossReference ||--|o TermConcept : "target_concept_id"
+TermCrossReference ||--|| TermConcept : "concept_id"
+TermHierarchyMap ||--|| TermConcept : "concept_id"
+TermHierarchyMap ||--}o TermConcept : "parent_id"
 </code></pre>
 </article>
 </div>

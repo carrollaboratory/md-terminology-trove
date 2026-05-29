@@ -6,7 +6,7 @@ imports:
   - md_terminology_trove
 
 classes:
-  CrossReference:
+  TermCrossReference:
     description: >-
       References to other terms that are encountered during traversal/loading
     is_a: HasConceptId

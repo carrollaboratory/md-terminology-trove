@@ -6,7 +6,7 @@ imports:
   - md_terminology_trove
 
 classes:
-  HierarchyMap:
+  TermHierarchyMap:
     description: >-
       Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
 

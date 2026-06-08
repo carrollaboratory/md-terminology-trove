@@ -25,11 +25,5 @@ imports:
   - term_concept
   - term_hierarchy_map
   - term_cross_reference
+  - concept_relationship
 
-classes:
-  HasConceptId:
-    description: >-
-      Base class for all concept tables
-    slots:
-      - concept_id
-    class_uri: schema:Thing

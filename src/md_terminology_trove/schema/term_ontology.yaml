@@ -6,52 +6,47 @@ imports:
   - md_terminology_trove
 
 classes:
-  TermOntology:
+  Vocabulary:
     description: >-
       Flat table containing each of the ontologies used for dataset annotations
     slots:
-      - ontology_id
+      - vocabulary_id
       - name
-      - ontology_uri
+      - vocabulary_uri
       - fhir_system
       - prefix
       - description
+      - version
       - source # Where were the terms pulled from
     slot_usage:
-      ontology_id:
+      vocabulary_id:
         identifier: true
         range: string
 slots:
-  ontology_id:
-    title: Ontology ID
-    description: The ID associated with the ontology inside the warehouse
+  vocabulary_id:
+    title: Vocabulary ID
+    description: The ID associated with the vocabulary or ontology inside the warehouse
     required: true
-    range: TermOntology
-    multivalued: false
-    identifier: false
+    range: Vocabulary
   name:
-    title: Ontology Name
+    title: Vocabulary Name
     description: Full name for the ontology
     required: false
     range: string
-    multivalued: false
-  ontology_uri:
-    title: Ontology URI
-    description: Official URI associated with the ontology
+  vocabulary_uri:
+    title: Vocabulary URI
+    description: Official URI associated with the vocabulary
     required: true
     range: uri
-    multivalued: false
   fhir_system:
     title: FHIR System
     description: System used within FHIR valuesets and codings
     required: true
     range: uri
-    multivalued: false
   prefix:
     title: Canonical Curie Prefix
     description: The authoritative namespace prefix allocated to the vocabulary. Used to resolve compact identifiers (CURIEs) to their full semantic URIs or FHIR system URLs.
     range: string
-    multivalued: false
     pattern: "^[A-Za-z][A-Za-z0-9_\\-\\.]*$"
     comments:
       - "Must start with a letter; thereafter allows letters, digits, underscores, hyphens, and dots to accommodate OLS/UMLS source variability."
@@ -61,6 +56,11 @@ slots:
   description:
     title: Ontology description
     description: Ontology description
+    range: string
+    multivalued: false
+  version:
+    title: Version
+    description: Version associated with the current vocabulary content
     range: string
     multivalued: false
   source:

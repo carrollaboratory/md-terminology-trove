@@ -6,41 +6,41 @@ imports:
   - md_terminology_trove
 
 classes:
-  TermConcept:
+  Concept:
     description: >-
       Flat table containing the curied codes for all ontological terms used for dataset annotations.
 
-    is_a: HasConceptId
     slots:
-      - ontology_id
+      - concept_curie
+      - vocabulary_id
       - concept_code
+      - omop_concept_id
       - display
       - definition
-      - version # This is a huge mess. I'm not sure how we want to handle this correctly other than a blind string
       - dbt_updated_at
       - dbt_valid_from
       - dbt_valid_to
       - dbt_scd_id
     slot_usage:
-      concept_id:
+      concept_curie:
         identifier: true
+        required: true
         range: uriorcurie
 
 slots:
-  concept_id:
-    title: Concept ID
+  concept_curie:
+    title: Concept Curie
     description: The standardized curie for the term
-    required: true
-    range: uriorcurie
-    multivalued: false
-    identifier: false
+    range: Concept
   concept_code:
     title: Concept Code
     description: Identifier as it is defined within the ontology
     required: true
     range: string
-    multivalued: false
-    identifier: false
+  omop_concept_id:
+    title: OMOP Concept ID
+    description: The OMOP Concept ID for the term, if applicable
+    range: integer
   dbt_scd_id:
     range: string
     description: "Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration."
@@ -67,8 +67,4 @@ slots:
     description: Detailed description for the term
     range: string
     multivalued: false
-  version:
-    title: Version
-    description: Version associated with the current ontology content
-    range: string
-    multivalued: false
+

@@ -6,19 +6,15 @@ imports:
   - md_terminology_trove
 
 classes:
-  TermHierarchyMap:
+  HierarchyMap:
     description: >-
-      Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
-
-    is_a: HasConceptId
+      Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem
     slots:
-      - parent_id
-    slot_usage:
-      concept_id:
-        range: TermConcept
+      - concept_curie
+      - parent_concept_curie
+
 slots:
-  parent_id:
-    title: Parent ID
+  parent_concept_curie:
+    title: Parent Concept Curie
     description: The immediate ancester of the term
-    range: TermConcept
-    multivalued: true
+    range: Concept

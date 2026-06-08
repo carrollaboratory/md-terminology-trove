@@ -6,27 +6,18 @@ imports:
   - md_terminology_trove
 
 classes:
-  TermCrossReference:
+  CrossReference:
     description: >-
       References to other terms that are encountered during traversal/loading
-    is_a: HasConceptId
     slots:
-      - target_concept_id
+      - concept_curie
+      - target_concept_curie
       - mapping_relationship
-    slot_usage:
-      concept_id:
-        range: TermConcept
 slots:
-  target_concept_id:
-    title: Target Concept ID
-    description: The concept to which this term relates
-    range: TermConcept
-    multivalued: false
   mapping_relationship:
     title: Mapping Relationship
     description: The relationship between the subject (this term) and the object (target_concept_id)
     range: EnumMappingRelationship
-    multivalued: false
 enums:
   EnumMappingRelationship:
     description: SKOS terms for mapping relationships

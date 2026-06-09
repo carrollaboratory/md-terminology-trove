@@ -12,7 +12,7 @@ classes:
     slots:
       - concept_curie
       - target_concept_curie
-      - mapping_relationship
+      - relationship_curie
 slots:
   target_concept_curie:
     title: Target Concept ID

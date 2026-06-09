@@ -574,10 +574,9 @@ slots:
     title: Mapping Relationship
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/mapping_relationship
-    owner: ConceptRelationship
+    owner: CrossReference
     domain_of:
     - CrossReference
-    - ConceptRelationship
     range: EnumMappingRelationship
   target_concept_curie:
     name: target_concept_curie
@@ -598,6 +597,9 @@ slots:
     title: Mapping Relationship
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/relationship_curie
+    owner: ConceptRelationship
+    domain_of:
+    - ConceptRelationship
     range: uriorcurie
   Vocabulary_vocabulary_id:
     name: Vocabulary_vocabulary_id
@@ -708,11 +710,11 @@ classes:
     slots:
     - concept_curie
     - target_concept_curie
-    - mapping_relationship
+    - relationship_curie
     class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/ConceptRelationship
 metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
-source_file_date: '2026-06-08T19:41:05'
+source_file_date: '2026-06-09T12:32:16'
 source_file_size: 836
-generation_date: '2026-06-08T19:41:15'
+generation_date: '2026-06-09T12:32:26'
 

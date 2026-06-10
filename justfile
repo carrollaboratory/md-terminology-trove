@@ -104,7 +104,11 @@ clean: _wsl2_compat_check _clean_project
 
 # (Re-)Generate project and documentation locally
 [group('model development')]
-site: gen-project gen-doc
+site: gen-project gen-doc _gen_sqla
+
+# SQL Alchemy model
+[group('model development')]
+gensqla: _gen_sqla
 
 # Deploy documentation site to Github Pages
 [group('deployment')]

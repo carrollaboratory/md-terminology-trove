@@ -1,5 +1,5 @@
 # Auto generated from md_terminology_trove.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-08T16:29:21
+# Generation date: 2026-06-10T11:10:07
 # Schema: md-terminology-trove
 #
 # id: https://w3id.org/carrollaboratory/md-terminology-trove
@@ -159,7 +159,7 @@ class TermOntology(YAMLRoot):
 
 
 @dataclass(repr=False)
-class TermConcept(YAMLRoot):
+class TermConcept(HasConceptId):
     """
     Flat table containing the curied codes for all ontological terms used for dataset annotations.
     """
@@ -226,7 +226,7 @@ class TermConcept(YAMLRoot):
 
 
 @dataclass(repr=False)
-class TermHierarchyMap(YAMLRoot):
+class TermHierarchyMap(HasConceptId):
     """
     Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
     """
@@ -254,7 +254,7 @@ class TermHierarchyMap(YAMLRoot):
 
 
 @dataclass(repr=False)
-class TermCrossReference(YAMLRoot):
+class TermCrossReference(HasConceptId):
     """
     References to other terms that are encountered during traversal/loading
     """

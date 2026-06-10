@@ -700,6 +700,7 @@ classes:
     description: Flat table containing the curied codes for all ontological terms
       used for dataset annotations.
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    is_a: HasConceptId
     slots:
     - ontology_id
     - concept_code
@@ -723,6 +724,7 @@ classes:
     description: 'Basic parent/child relationships, suitable for populating a hierarchical
       FHIR codesystem    is_a: HasConceptId'
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
+    is_a: HasConceptId
     slots:
     - parent_id
     - TermHierarchyMap_concept_id
@@ -736,6 +738,7 @@ classes:
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
     description: References to other terms that are encountered during traversal/loading
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
+    is_a: HasConceptId
     slots:
     - target_concept_id
     - mapping_relationship
@@ -749,5 +752,5 @@ metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
 source_file_date: '2026-05-29T13:24:27'
 source_file_size: 954
-generation_date: '2026-06-08T16:29:35'
+generation_date: '2026-06-10T11:10:12'
 

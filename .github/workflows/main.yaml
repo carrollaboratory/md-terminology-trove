@@ -30,7 +30,8 @@ jobs:
 
       # https://github.com/astral-sh/setup-uv
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        # Falling back to 7.2.1 since there are issues with my hatch script in 8
+        uses: astral-sh/setup-uv@v7.2.1
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
@@ -47,12 +48,10 @@ jobs:
           uv tool install rust-just
 
       - name: Install dependencies
-        run: uv sync --dev --group dev --no-progress  --no-install-project
+        run: uv sync --dev --no-progress --no-install-project
 
       - name: Install project
-        run: uv sync --dev --group dev --no-progress
-        env:
-          UV_NO_BUILD_ISOLATION: "1"
+        run: uv sync --dev --no-progress
 
       - name: Run test suite
         run: just test

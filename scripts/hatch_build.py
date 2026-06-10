@@ -10,6 +10,34 @@ except ImportError:
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 
+def _find_gen_sqla(root: Path) -> Path:
+    """Locate gen-sqla, checking the local venv first, then PATH.
+
+    gen-sqla ships with linkml.  In CI it is installed via
+    ``uv tool install linkml`` *before* ``uv sync`` so that this hook can
+    find it when hatchling builds the editable wheel.  Locally it is
+    available in the project venv after ``uv sync --group dev``.
+    """
+    candidates = [
+        root / ".venv" / "bin" / "gen-sqla",
+        # uv tool installs land here on Linux/macOS
+        Path.home() / ".local" / "bin" / "gen-sqla",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    found = shutil.which("gen-sqla")
+    if found:
+        return Path(found)
+
+    raise RuntimeError(
+        "gen-sqla not found. "
+        "Run `uv sync --group dev` to make it available in the project venv, "
+        "or `uv tool install linkml` to install it globally."
+    )
+
+
 class CustomBuildHook(BuildHookInterface):
     def initialize(self, version, build_data):
         root = Path(self.root)
@@ -23,21 +51,13 @@ class CustomBuildHook(BuildHookInterface):
         )
 
         # Generate directly into the package dir - this gets included in the
-        # sdist naturally and is present when hatchling builds the wheel
+        # sdist naturally and is present when hatchling builds the wheel.
         pkg_dir = root / schema_name
         pkg_dir.mkdir(parents=True, exist_ok=True)
         dest_file = pkg_dir / f"{schema_name}.py"
 
         if not dest_file.exists():
-            gen_sqla = root / ".venv" / "bin" / "gen-sqla"
-            if not gen_sqla.exists():
-                found = shutil.which("gen-sqla")
-                if not found:
-                    raise RuntimeError(
-                        "gen-sqla not found. Run `uv sync --group dev` first, "
-                        "or run `just _gen_sqla` before `uv build`."
-                    )
-                gen_sqla = Path(found)
+            gen_sqla = _find_gen_sqla(root)
 
             with open(dest_file, "w") as out:
                 subprocess.run(
@@ -46,7 +66,7 @@ class CustomBuildHook(BuildHookInterface):
                     check=True,
                 )
 
-        # Also copy to project/sqlalchemy/ for consistency with just site output
+        # Also copy to project/sqlalchemy/ for consistency with just site output.
         sqla_dir = root / "project" / "sqlalchemy"
         sqla_dir.mkdir(parents=True, exist_ok=True)
         shutil.copy(dest_file, sqla_dir / f"{schema_name}.py")
@@ -57,7 +77,7 @@ class CustomBuildHook(BuildHookInterface):
         build_data["artifacts"].append(str(dest_file))
         build_data["force_include"][str(dest_file)] = f"{schema_name}/{schema_name}.py"
 
-        # Bundle harmony CSVs if present
+        # Bundle harmony CSVs if present.
         harmony_src = root / "project" / "harmony"
         if harmony_src.exists():
             for csv_file in harmony_src.glob("*.csv"):

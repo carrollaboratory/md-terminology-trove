@@ -47,10 +47,9 @@ jobs:
           uv tool install rust-just
 
       - name: Install dependencies
-        run: uv sync --dev --no-progress --no-install-workspace
-
-      - name: Run code generation
-        run: just -f project.just _gen_sqla
+        run: uv sync --dev --no-progress
+        env:
+          UV_NO_BUILD_ISOLATION: "1"
 
       - name: Install project
         run: uv sync --group dev --no-progress

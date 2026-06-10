@@ -46,14 +46,14 @@ jobs:
         run: |
           uv tool install rust-just
 
-      - name: Run code generation
-        run: just _gen_sqla
-
       - name: Install dependencies
-        run: uv sync --dev --no-progress --no-install-project
+        run: uv sync --dev --no-progress --no-install-workspace
+
+      - name: Run code generation
+        run: just -f project.just _gen_sqla
 
       - name: Install project
-        run: uv sync --group dev --no-progress --no-install-project
+        run: uv sync --group dev --no-progress
 
       - name: Run test suite
         run: just test

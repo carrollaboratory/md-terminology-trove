@@ -50,7 +50,7 @@ jobs:
         run: uv sync --dev --no-progress --no-install-project
 
       - name: Install project
-        run: uv sync --group dev
+        run: uv sync --group dev --no-progress --no-install-project
 
       - name: Run test suite
         run: just test

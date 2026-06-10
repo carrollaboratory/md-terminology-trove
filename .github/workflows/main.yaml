@@ -50,9 +50,7 @@ jobs:
         run: uv sync --dev --group dev --no-progress --no-install-workspace
 
       - name: Install project
-        run: uv run uv sync --dev --group dev --no-progress
-        env:
-          UV_NO_BUILD_ISOLATION: "1"
+        run: uv sync --dev --group dev --no-progress
 
       - name: Run test suite
         run: just test

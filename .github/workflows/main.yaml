@@ -47,19 +47,6 @@ jobs:
         run: |
           uv tool install rust-just
 
-      - name: Locate gen-sqla (diagnostic — remove once path is confirmed)
-        run: |
-          echo "=== which gen-sqla ==="
-          which gen-sqla || echo "not on PATH"
-          echo "=== uv tool dir ==="
-          uv tool dir
-          echo "=== find gen-sqla under uv tool dir ==="
-          find "$(uv tool dir)" -name "gen-sqla" 2>/dev/null || echo "not found"
-          echo "=== HOME ==="
-          echo "$HOME"
-          echo "=== PATH ==="
-          echo "$PATH"
-
       - name: Install gen-sqla
         run: uv tool install linkml --python ${{ matrix.python-version }}
 

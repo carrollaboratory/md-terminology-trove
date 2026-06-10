@@ -1,5 +1,5 @@
 # Auto generated from md_terminology_trove.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-29T13:25:54
+# Generation date: 2026-06-08T16:29:21
 # Schema: md-terminology-trove
 #
 # id: https://w3id.org/carrollaboratory/md-terminology-trove
@@ -159,7 +159,7 @@ class TermOntology(YAMLRoot):
 
 
 @dataclass(repr=False)
-class TermConcept(HasConceptId):
+class TermConcept(YAMLRoot):
     """
     Flat table containing the curied codes for all ontological terms used for dataset annotations.
     """
@@ -172,6 +172,7 @@ class TermConcept(HasConceptId):
 
     concept_id: Union[str, TermConceptConceptId] = None
     ontology_id: Union[str, TermOntologyOntologyId] = None
+    concept_code: str = None
     dbt_updated_at: Union[str, XSDDateTime] = None
     dbt_valid_from: Union[str, XSDDateTime] = None
     display: Optional[str] = None
@@ -190,6 +191,11 @@ class TermConcept(HasConceptId):
             self.MissingRequiredField("ontology_id")
         if not isinstance(self.ontology_id, TermOntologyOntologyId):
             self.ontology_id = TermOntologyOntologyId(self.ontology_id)
+
+        if self._is_empty(self.concept_code):
+            self.MissingRequiredField("concept_code")
+        if not isinstance(self.concept_code, str):
+            self.concept_code = str(self.concept_code)
 
         if self._is_empty(self.dbt_updated_at):
             self.MissingRequiredField("dbt_updated_at")
@@ -220,16 +226,16 @@ class TermConcept(HasConceptId):
 
 
 @dataclass(repr=False)
-class HierarchyMap(HasConceptId):
+class TermHierarchyMap(YAMLRoot):
     """
     Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-hierarchy-map/HierarchyMap"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-hierarchy-map/HierarchyMap"
-    class_name: ClassVar[str] = "HierarchyMap"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.HierarchyMap
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-hierarchy-map/TermHierarchyMap"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-hierarchy-map/TermHierarchyMap"
+    class_name: ClassVar[str] = "TermHierarchyMap"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermHierarchyMap
 
     concept_id: Union[str, TermConceptConceptId] = None
     parent_id: Optional[Union[Union[str, TermConceptConceptId], list[Union[str, TermConceptConceptId]]]] = empty_list()
@@ -248,16 +254,16 @@ class HierarchyMap(HasConceptId):
 
 
 @dataclass(repr=False)
-class CrossReference(HasConceptId):
+class TermCrossReference(YAMLRoot):
     """
     References to other terms that are encountered during traversal/loading
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-cross-reference/CrossReference"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-cross-reference/CrossReference"
-    class_name: ClassVar[str] = "CrossReference"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.CrossReference
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-cross-reference/TermCrossReference"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-cross-reference/TermCrossReference"
+    class_name: ClassVar[str] = "TermCrossReference"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermCrossReference
 
     concept_id: Union[str, TermConceptConceptId] = None
     target_concept_id: Optional[Union[str, TermConceptConceptId]] = None
@@ -338,6 +344,9 @@ slots.source = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/source'], name="source", 
 slots.concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.concept_id, domain=None, range=Union[str, URIorCURIE])
 
+slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'], name="concept_code", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_code'),
+                   model_uri=MD_TERMINOLOGY_TROVE.concept_code, domain=None, range=str)
+
 slots.dbt_scd_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/dbt_scd_id'], name="dbt_scd_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/dbt_scd_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.dbt_scd_id, domain=None, range=Optional[str])
 
@@ -374,8 +383,8 @@ slots.TermOntology_ontology_id = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/ontolog
 slots.TermConcept_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="TermConcept_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.TermConcept_concept_id, domain=TermConcept, range=Union[str, TermConceptConceptId])
 
-slots.HierarchyMap_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="HierarchyMap_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.HierarchyMap_concept_id, domain=HierarchyMap, range=Union[str, TermConceptConceptId])
+slots.TermHierarchyMap_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="TermHierarchyMap_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
+                   model_uri=MD_TERMINOLOGY_TROVE.TermHierarchyMap_concept_id, domain=TermHierarchyMap, range=Union[str, TermConceptConceptId])
 
-slots.CrossReference_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="CrossReference_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.CrossReference_concept_id, domain=CrossReference, range=Union[str, TermConceptConceptId])
+slots.TermCrossReference_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="TermCrossReference_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
+                   model_uri=MD_TERMINOLOGY_TROVE.TermCrossReference_concept_id, domain=TermCrossReference, range=Union[str, TermConceptConceptId])

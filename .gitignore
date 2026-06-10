@@ -7,6 +7,8 @@
 .bash_history_local
 .envrc
 
+# This is an artifact of running scripts/build_hatch.py 
+/md_terminology_trove/
 
 # Derived schemas, generated from the schema.yaml
 tmp/

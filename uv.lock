@@ -773,6 +773,22 @@ wheels = [
 ]
 
 [[package]]
+name = "hatchling"
+version = "1.30.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "pathspec" },
+    { name = "pluggy" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
+    { name = "trove-classifiers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/63/4c/8717ccb844b4fa5a5ba6352e97d743ed24e9a22cf90b7c109c17030a46a1/hatchling-1.30.1.tar.gz", hash = "sha256:eee4fd45357f72ebb3d7a42e5d72cfb5e29ed426d79e8836288926c4258d5f2e", size = 56929, upload-time = "2026-06-02T00:09:41.487Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/56/49/2797ec0ef88008a653a8867bb8d1e5c223cd2df8e40390dd5c6a0279cbc5/hatchling-1.30.1-py3-none-any.whl", hash = "sha256:161eacafb3c6f91526e92116d21426369f2c36e98c36a864f11a96345ad4ee31", size = 77489, upload-time = "2026-06-02T00:09:40.139Z" },
+]
+
+[[package]]
 name = "hbreader"
 version = "0.9.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1490,12 +1506,14 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "hatchling" },
     { name = "jupyter" },
     { name = "linkml" },
     { name = "mkdocs-material" },
     { name = "mkdocs-mermaid2-plugin" },
     { name = "mkdocs-pymdownx-material-extras" },
     { name = "mknotebooks" },
+    { name = "tomli" },
 ]
 
 [package.metadata]
@@ -1503,12 +1521,14 @@ requires-dist = [{ name = "linkml-runtime", specifier = ">=1.9.4" }]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "hatchling", specifier = ">=1.27.0" },
     { name = "jupyter", specifier = ">=1.0.0" },
     { name = "linkml", specifier = ">=1.9.3" },
     { name = "mkdocs-material", specifier = ">=8.2.8" },
     { name = "mkdocs-mermaid2-plugin", specifier = ">=1.1.1" },
     { name = "mkdocs-pymdownx-material-extras", specifier = ">=2.5.6" },
     { name = "mknotebooks", specifier = ">=0.8.0" },
+    { name = "tomli", specifier = ">=2.0.0" },
 ]
 
 [[package]]
@@ -3219,6 +3239,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/1b/22/40f55b26baeab80c2d7b3f1db0682f8954e4617fee7d90ce634022ef05c6/traitlets-5.15.0.tar.gz", hash = "sha256:4fead733f81cf1c4c938e06f8ca4633896833c9d89eff878159457f4d4392971", size = 163197, upload-time = "2026-05-06T08:05:58.016Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/da/98/a9937a969d018a23badfea0b381f66783649d48e0ea6c41923265c3cbeb3/traitlets-5.15.0-py3-none-any.whl", hash = "sha256:fb36a18867a6803deab09f3c5e0fa81bb7b26a5c9e82501c9933f759166eff40", size = 85877, upload-time = "2026-05-06T08:05:55.853Z" },
+]
+
+[[package]]
+name = "trove-classifiers"
+version = "2026.6.1.19"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c2/e3/7ca82ee24c82d344584abd5b8637b3bd056f2900226e8d82fc22f1184b92/trove_classifiers-2026.6.1.19.tar.gz", hash = "sha256:c5132b4b61a829d11cfbd2d72e97f20a45ed6edb95e45c5efdeb5e00836b2745", size = 17059, upload-time = "2026-06-01T19:41:34.649Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/a4/81502f486f01db95bc8320646a8a12511f5e556cb63d5e224d91816605c4/trove_classifiers-2026.6.1.19-py3-none-any.whl", hash = "sha256:ab4c4ec93cc4a4e7815fa759906e05e6bb3f2fbd92ea0f897288c6a43efd15b3", size = 14211, upload-time = "2026-06-01T19:41:33.434Z" },
 ]
 
 [[package]]

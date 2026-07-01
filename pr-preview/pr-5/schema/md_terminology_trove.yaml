@@ -1,0 +1,756 @@
+name: md-terminology-trove
+description: Data model that represents the flattened ontologies that are used by
+  MapDragon for annotation.
+title: md-terminology-trove
+see_also:
+- https://carrollaboratory.github.io/md-terminology-trove
+id: https://w3id.org/carrollaboratory/md-terminology-trove
+imports:
+- linkml:types
+- term_ontology
+- term_concept
+- term_hierarchy_map
+- term_cross_reference
+- md_terminology_trove
+license: MIT
+prefixes:
+  md_terminology_trove:
+    prefix_prefix: md_terminology_trove
+    prefix_reference: https://w3id.org/carrollaboratory/md-terminology-trove/
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  biolink:
+    prefix_prefix: biolink
+    prefix_reference: https://w3id.org/biolink/vocab/
+  schema:
+    prefix_prefix: schema
+    prefix_reference: http://schema.org/
+  PATO:
+    prefix_prefix: PATO
+    prefix_reference: http://purl.obolibrary.org/obo/PATO_
+  example:
+    prefix_prefix: example
+    prefix_reference: http://www.example.org/rdf#
+  skos:
+    prefix_prefix: skos
+    prefix_reference: http://www.w3.org/2004/02/skos/core#
+default_prefix: md_terminology_trove
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced
+      with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  EnumMappingRelationship:
+    name: EnumMappingRelationship
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/EnumMappingRelationship
+    description: SKOS terms for mapping relationships
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
+    permissible_values:
+      exact_match:
+        text: exact_match
+        description: The two codes can be used interchangeably across almost all systems
+        meaning: skos:exactMatch
+      close_match:
+        text: close_match
+        description: The two are similar enough to be interchangeable in some contexts,
+          but not all.
+        meaning: skos:closeMatch
+      broad_match:
+        text: broad_match
+        description: The object (target) is a broader/more general concept than the
+          subject (concept_id).
+        meaning: skos:broadMatch
+      narrow_match:
+        text: narrow_match
+        description: The object (target) is a narrower/more specific concept than
+          the subject (concept_id).
+        meaning: skos:narrowMatch
+      related_match:
+        text: related_match
+        description: The two are associated in some way, but not interchangeable.
+        meaning: skos:relatedMatch
+slots:
+  ontology_id:
+    name: ontology_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
+    description: The ID associated with the ontology inside the warehouse
+    title: Ontology ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
+    identifier: false
+    owner: TermConcept
+    domain_of:
+    - TermOntology
+    - TermConcept
+    range: TermOntology
+    required: true
+    multivalued: false
+  name:
+    name: name
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/name
+    description: Full name for the ontology
+    title: Ontology Name
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/name
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    range: string
+    required: false
+    multivalued: false
+  ontology_uri:
+    name: ontology_uri
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_uri
+    description: Official URI associated with the ontology
+    title: Ontology URI
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_uri
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    range: uri
+    required: true
+    multivalued: false
+  fhir_system:
+    name: fhir_system
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/fhir_system
+    description: System used within FHIR valuesets and codings
+    title: FHIR System
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/fhir_system
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    range: uri
+    required: true
+    multivalued: false
+  prefix:
+    name: prefix
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/prefix
+    description: The authoritative namespace prefix allocated to the vocabulary. Used
+      to resolve compact identifiers (CURIEs) to their full semantic URIs or FHIR
+      system URLs.
+    title: Canonical Curie Prefix
+    todos:
+    - Ensure that MapDragon and TermWeaver both rely on the same rules for prefixes
+    comments:
+    - Must start with a letter; thereafter allows letters, digits, underscores, hyphens,
+      and dots to accommodate OLS/UMLS source variability.
+    - 'RISK: In order for all of our data to correctly join, the format of the prefix
+      must always align with the prefix used in this table.'
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/prefix
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    range: string
+    multivalued: false
+    pattern: ^[A-Za-z][A-Za-z0-9_\-\.]*$
+  description:
+    name: description
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/description
+    description: Ontology description
+    title: Ontology description
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/description
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    range: string
+    multivalued: false
+  source:
+    name: source
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/source
+    description: Source used for populating the terminologies members
+    title: Data source
+    comments:
+    - This is currently poorly defined because we haven't fully defined the nature
+      of the data pulls. Most likely it will end up as a filename (.owl, .obo, etc)
+      or another tool, etc
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/source
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    range: string
+    multivalued: false
+  concept_id:
+    name: concept_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    description: The standardized curie for the term
+    title: Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    identifier: false
+    owner: HasConceptId
+    domain_of:
+    - HasConceptId
+    range: uriorcurie
+    required: true
+    multivalued: false
+  concept_code:
+    name: concept_code
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
+    description: Identifier as it is defined within the ontology
+    title: Concept Code
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
+    identifier: false
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    required: true
+    multivalued: false
+  dbt_scd_id:
+    name: dbt_scd_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
+    description: Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration.
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    required: false
+  dbt_updated_at:
+    name: dbt_updated_at
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_updated_at
+    description: The timestamp when the source record was last changed, used by dbt
+      to detect if an update has occurred.
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_updated_at
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: datetime
+    required: true
+  dbt_valid_from:
+    name: dbt_valid_from
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_valid_from
+    description: The timestamp indicating when this specific row's historical version
+      became active.
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_valid_from
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: datetime
+    required: true
+  dbt_valid_to:
+    name: dbt_valid_to
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_valid_to
+    description: The timestamp indicating when this historical version was superseded.
+      It remains NULL if the row is the currently active version.
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_valid_to
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: datetime
+    required: false
+  display:
+    name: display
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/display
+    description: The friendly display string of the coded term
+    title: Display
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/display
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    multivalued: false
+  definition:
+    name: definition
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/definition
+    description: Detailed description for the term
+    title: Definition
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/definition
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    multivalued: false
+  version:
+    name: version
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/version
+    description: Version associated with the current ontology content
+    title: Version
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/version
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    multivalued: false
+  parent_id:
+    name: parent_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_id
+    description: The immediate ancester of the term
+    title: Parent ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_id
+    owner: TermHierarchyMap
+    domain_of:
+    - TermHierarchyMap
+    range: TermConcept
+    multivalued: true
+  target_concept_id:
+    name: target_concept_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/target_concept_id
+    description: The concept to which this term relates
+    title: Target Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/target_concept_id
+    owner: TermCrossReference
+    domain_of:
+    - TermCrossReference
+    range: TermConcept
+    multivalued: false
+  mapping_relationship:
+    name: mapping_relationship
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/mapping_relationship
+    description: The relationship between the subject (this term) and the object (target_concept_id)
+    title: Mapping Relationship
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/mapping_relationship
+    owner: TermCrossReference
+    domain_of:
+    - TermCrossReference
+    range: EnumMappingRelationship
+    multivalued: false
+  TermOntology_ontology_id:
+    name: TermOntology_ontology_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
+    description: The ID associated with the ontology inside the warehouse
+    title: Ontology ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    is_a: ontology_id
+    domain: TermOntology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
+    identifier: true
+    alias: ontology_id
+    owner: TermOntology
+    domain_of:
+    - TermOntology
+    is_usage_slot: true
+    usage_slot_name: ontology_id
+    range: string
+    required: true
+    multivalued: false
+  TermConcept_concept_id:
+    name: TermConcept_concept_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    description: The standardized curie for the term
+    title: Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    is_a: concept_id
+    domain: TermConcept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    identifier: true
+    alias: concept_id
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    is_usage_slot: true
+    usage_slot_name: concept_id
+    range: uriorcurie
+    required: true
+    multivalued: false
+  TermHierarchyMap_concept_id:
+    name: TermHierarchyMap_concept_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    description: The standardized curie for the term
+    title: Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    is_a: concept_id
+    domain: TermHierarchyMap
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    identifier: false
+    alias: concept_id
+    owner: TermHierarchyMap
+    domain_of:
+    - TermHierarchyMap
+    is_usage_slot: true
+    usage_slot_name: concept_id
+    range: TermConcept
+    required: true
+    multivalued: false
+  TermCrossReference_concept_id:
+    name: TermCrossReference_concept_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    description: The standardized curie for the term
+    title: Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    is_a: concept_id
+    domain: TermCrossReference
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    identifier: false
+    alias: concept_id
+    owner: TermCrossReference
+    domain_of:
+    - TermCrossReference
+    is_usage_slot: true
+    usage_slot_name: concept_id
+    range: TermConcept
+    required: true
+    multivalued: false
+classes:
+  HasConceptId:
+    name: HasConceptId
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/HasConceptId
+    description: Base class for all concept tables
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove
+    mappings:
+    - schema:Thing
+    slots:
+    - concept_id
+    class_uri: schema:Thing
+  TermOntology:
+    name: TermOntology
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/TermOntology
+    description: Flat table containing each of the ontologies used for dataset annotations
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slots:
+    - TermOntology_ontology_id
+    - name
+    - ontology_uri
+    - fhir_system
+    - prefix
+    - description
+    - source
+    slot_usage:
+      ontology_id:
+        name: ontology_id
+        identifier: true
+        range: string
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/TermOntology
+  TermConcept:
+    name: TermConcept
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/TermConcept
+    description: Flat table containing the curied codes for all ontological terms
+      used for dataset annotations.
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    is_a: HasConceptId
+    slots:
+    - ontology_id
+    - concept_code
+    - display
+    - definition
+    - version
+    - dbt_updated_at
+    - dbt_valid_from
+    - dbt_valid_to
+    - dbt_scd_id
+    - TermConcept_concept_id
+    slot_usage:
+      concept_id:
+        name: concept_id
+        identifier: true
+        range: uriorcurie
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/TermConcept
+  TermHierarchyMap:
+    name: TermHierarchyMap
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/TermHierarchyMap
+    description: 'Basic parent/child relationships, suitable for populating a hierarchical
+      FHIR codesystem    is_a: HasConceptId'
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
+    is_a: HasConceptId
+    slots:
+    - parent_id
+    - TermHierarchyMap_concept_id
+    slot_usage:
+      concept_id:
+        name: concept_id
+        range: TermConcept
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/TermHierarchyMap
+  TermCrossReference:
+    name: TermCrossReference
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
+    description: References to other terms that are encountered during traversal/loading
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
+    is_a: HasConceptId
+    slots:
+    - target_concept_id
+    - mapping_relationship
+    - TermCrossReference_concept_id
+    slot_usage:
+      concept_id:
+        name: concept_id
+        range: TermConcept
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
+metamodel_version: 1.11.0
+source_file: md_terminology_trove.yaml
+source_file_date: '2026-07-01T06:20:06'
+source_file_size: 954
+generation_date: '2026-07-01T06:20:20'
+

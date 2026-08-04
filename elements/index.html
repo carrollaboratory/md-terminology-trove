@@ -587,23 +587,23 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="HasConceptId/">HasConceptId</a></td>
-<td>Base class for all concept tables</td>
-</tr>
-<tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="TermConcept/">TermConcept</a></td>
+<td><a href="Concept/">Concept</a></td>
 <td>Flat table containing the curied codes for all ontological terms used for dat...</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="TermCrossReference/">TermCrossReference</a></td>
+<td><a href="ConceptRelationship/">ConceptRelationship</a></td>
+<td>Relationships between two terms</td>
+</tr>
+<tr>
+<td><a href="CrossReference/">CrossReference</a></td>
 <td>References to other terms that are encountered during traversal/loading</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="TermHierarchyMap/">TermHierarchyMap</a></td>
+<td><a href="HierarchyMap/">HierarchyMap</a></td>
 <td>Basic parent/child relationships, suitable for populating a hierarchical FHIR...</td>
 </tr>
 <tr>
-<td><a href="TermOntology/">TermOntology</a></td>
+<td><a href="Vocabulary/">Vocabulary</a></td>
 <td>Flat table containing each of the ontologies used for dataset annotations</td>
 </tr>
 </tbody>
@@ -622,7 +622,7 @@
 <td>Identifier as it is defined within the ontology</td>
 </tr>
 <tr>
-<td><a href="concept_id/">concept_id</a></td>
+<td><a href="concept_curie/">concept_curie</a></td>
 <td>The standardized curie for the term</td>
 </tr>
 <tr>
@@ -666,15 +666,11 @@
 <td>Full name for the ontology</td>
 </tr>
 <tr>
-<td><a href="ontology_id/">ontology_id</a></td>
-<td>The ID associated with the ontology inside the warehouse</td>
+<td><a href="omop_concept_id/">omop_concept_id</a></td>
+<td>The OMOP Concept ID for the term, if applicable</td>
 </tr>
 <tr>
-<td><a href="ontology_uri/">ontology_uri</a></td>
-<td>Official URI associated with the ontology</td>
-</tr>
-<tr>
-<td><a href="parent_id/">parent_id</a></td>
+<td><a href="parent_concept_curie/">parent_concept_curie</a></td>
 <td>The immediate ancester of the term</td>
 </tr>
 <tr>
@@ -682,16 +678,28 @@
 <td>The authoritative namespace prefix allocated to the vocabulary</td>
 </tr>
 <tr>
+<td><a href="relationship_curie/">relationship_curie</a></td>
+<td>The relationship between the subject (this term) and the object (target_conce...</td>
+</tr>
+<tr>
 <td><a href="source/">source</a></td>
 <td>Source used for populating the terminologies members</td>
 </tr>
 <tr>
-<td><a href="target_concept_id/">target_concept_id</a></td>
+<td><a href="target_concept_curie/">target_concept_curie</a></td>
 <td>The concept to which this term relates</td>
 </tr>
 <tr>
 <td><a href="version/">version</a></td>
-<td>Version associated with the current ontology content</td>
+<td>Version associated with the current vocabulary content</td>
+</tr>
+<tr>
+<td><a href="vocabulary_id/">vocabulary_id</a></td>
+<td>The ID associated with the vocabulary or ontology inside the warehouse</td>
+</tr>
+<tr>
+<td><a href="vocabulary_uri/">vocabulary_uri</a></td>
+<td>Official URI associated with the vocabulary</td>
 </tr>
 </tbody>
 </table>

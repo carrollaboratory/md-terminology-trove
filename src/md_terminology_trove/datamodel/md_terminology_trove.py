@@ -1,5 +1,5 @@
 # Auto generated from md_terminology_trove.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-10T11:10:07
+# Generation date: 2026-06-08T14:15:39
 # Schema: md-terminology-trove
 #
 # id: https://w3id.org/carrollaboratory/md-terminology-trove
@@ -56,7 +56,7 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Datetime, String, Uri, Uriorcurie
+from linkml_runtime.linkml_model.types import Datetime, Integer, String, Uri, Uriorcurie
 from linkml_runtime.utils.metamodelcore import URI, URIorCURIE, XSDDateTime
 
 metamodel_version = "1.11.0"
@@ -76,67 +76,45 @@ DEFAULT_ = MD_TERMINOLOGY_TROVE
 # Types
 
 # Class references
-class TermOntologyOntologyId(extended_str):
+class VocabularyVocabularyId(extended_str):
     pass
 
 
-class TermConceptConceptId(URIorCURIE):
+class ConceptConceptCurie(URIorCURIE):
     pass
 
 
 @dataclass(repr=False)
-class HasConceptId(YAMLRoot):
-    """
-    Base class for all concept tables
-    """
-    _inherited_slots: ClassVar[list[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = SCHEMA["Thing"]
-    class_class_curie: ClassVar[str] = "schema:Thing"
-    class_name: ClassVar[str] = "HasConceptId"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.HasConceptId
-
-    concept_id: Union[str, URIorCURIE] = None
-
-    def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.concept_id):
-            self.MissingRequiredField("concept_id")
-        if not isinstance(self.concept_id, URIorCURIE):
-            self.concept_id = URIorCURIE(self.concept_id)
-
-        super().__post_init__(**kwargs)
-
-
-@dataclass(repr=False)
-class TermOntology(YAMLRoot):
+class Vocabulary(YAMLRoot):
     """
     Flat table containing each of the ontologies used for dataset annotations
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["ontology/TermOntology"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:ontology/TermOntology"
-    class_name: ClassVar[str] = "TermOntology"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermOntology
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["ontology/Vocabulary"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:ontology/Vocabulary"
+    class_name: ClassVar[str] = "Vocabulary"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.Vocabulary
 
-    ontology_id: Union[str, TermOntologyOntologyId] = None
-    ontology_uri: Union[str, URI] = None
+    vocabulary_id: Union[str, VocabularyVocabularyId] = None
+    vocabulary_uri: Union[str, URI] = None
     fhir_system: Union[str, URI] = None
     name: Optional[str] = None
     prefix: Optional[str] = None
     description: Optional[str] = None
+    version: Optional[str] = None
     source: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.ontology_id):
-            self.MissingRequiredField("ontology_id")
-        if not isinstance(self.ontology_id, TermOntologyOntologyId):
-            self.ontology_id = TermOntologyOntologyId(self.ontology_id)
+        if self._is_empty(self.vocabulary_id):
+            self.MissingRequiredField("vocabulary_id")
+        if not isinstance(self.vocabulary_id, VocabularyVocabularyId):
+            self.vocabulary_id = VocabularyVocabularyId(self.vocabulary_id)
 
-        if self._is_empty(self.ontology_uri):
-            self.MissingRequiredField("ontology_uri")
-        if not isinstance(self.ontology_uri, URI):
-            self.ontology_uri = URI(self.ontology_uri)
+        if self._is_empty(self.vocabulary_uri):
+            self.MissingRequiredField("vocabulary_uri")
+        if not isinstance(self.vocabulary_uri, URI):
+            self.vocabulary_uri = URI(self.vocabulary_uri)
 
         if self._is_empty(self.fhir_system):
             self.MissingRequiredField("fhir_system")
@@ -152,6 +130,9 @@ class TermOntology(YAMLRoot):
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
 
+        if self.version is not None and not isinstance(self.version, str):
+            self.version = str(self.version)
+
         if self.source is not None and not isinstance(self.source, str):
             self.source = str(self.source)
 
@@ -159,38 +140,43 @@ class TermOntology(YAMLRoot):
 
 
 @dataclass(repr=False)
-class TermConcept(HasConceptId):
+class Concept(YAMLRoot):
     """
     Flat table containing the curied codes for all ontological terms used for dataset annotations.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-concept/TermConcept"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-concept/TermConcept"
-    class_name: ClassVar[str] = "TermConcept"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermConcept
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-concept/Concept"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-concept/Concept"
+    class_name: ClassVar[str] = "Concept"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.Concept
 
-    concept_id: Union[str, TermConceptConceptId] = None
-    ontology_id: Union[str, TermOntologyOntologyId] = None
+    concept_curie: Union[str, ConceptConceptCurie] = None
+    vocabulary_id: Union[str, VocabularyVocabularyId] = None
     concept_code: str = None
     dbt_updated_at: Union[str, XSDDateTime] = None
     dbt_valid_from: Union[str, XSDDateTime] = None
+    omop_concept_id: Optional[int] = None
     display: Optional[str] = None
     definition: Optional[str] = None
-    version: Optional[str] = None
     dbt_valid_to: Optional[Union[str, XSDDateTime]] = None
     dbt_scd_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.concept_id):
-            self.MissingRequiredField("concept_id")
-        if not isinstance(self.concept_id, TermConceptConceptId):
-            self.concept_id = TermConceptConceptId(self.concept_id)
+        if self._is_empty(self.concept_curie):
+            self.MissingRequiredField("concept_curie")
+        if not isinstance(self.concept_curie, ConceptConceptCurie):
+            self.concept_curie = ConceptConceptCurie(self.concept_curie)
 
-        if self._is_empty(self.ontology_id):
-            self.MissingRequiredField("ontology_id")
-        if not isinstance(self.ontology_id, TermOntologyOntologyId):
-            self.ontology_id = TermOntologyOntologyId(self.ontology_id)
+        if self._is_empty(self.vocabulary_id):
+            self.MissingRequiredField("vocabulary_id")
+        if not isinstance(self.vocabulary_id, VocabularyVocabularyId):
+            self.vocabulary_id = VocabularyVocabularyId(self.vocabulary_id)
+
+        if self._is_empty(self.concept_code):
+            self.MissingRequiredField("concept_code")
+        if not isinstance(self.concept_code, str):
+            self.concept_code = str(self.concept_code)
 
         if self._is_empty(self.concept_code):
             self.MissingRequiredField("concept_code")
@@ -207,14 +193,14 @@ class TermConcept(HasConceptId):
         if not isinstance(self.dbt_valid_from, XSDDateTime):
             self.dbt_valid_from = XSDDateTime(self.dbt_valid_from)
 
+        if self.omop_concept_id is not None and not isinstance(self.omop_concept_id, int):
+            self.omop_concept_id = int(self.omop_concept_id)
+
         if self.display is not None and not isinstance(self.display, str):
             self.display = str(self.display)
 
         if self.definition is not None and not isinstance(self.definition, str):
             self.definition = str(self.definition)
-
-        if self.version is not None and not isinstance(self.version, str):
-            self.version = str(self.version)
 
         if self.dbt_valid_to is not None and not isinstance(self.dbt_valid_to, XSDDateTime):
             self.dbt_valid_to = XSDDateTime(self.dbt_valid_to)
@@ -226,9 +212,9 @@ class TermConcept(HasConceptId):
 
 
 @dataclass(repr=False)
-class TermHierarchyMap(HasConceptId):
+class HierarchyMap(YAMLRoot):
     """
-    Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
+    Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -237,24 +223,21 @@ class TermHierarchyMap(HasConceptId):
     class_name: ClassVar[str] = "TermHierarchyMap"
     class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermHierarchyMap
 
-    concept_id: Union[str, TermConceptConceptId] = None
-    parent_id: Optional[Union[Union[str, TermConceptConceptId], list[Union[str, TermConceptConceptId]]]] = empty_list()
+    concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
+    parent_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.concept_id):
-            self.MissingRequiredField("concept_id")
-        if not isinstance(self.concept_id, TermConceptConceptId):
-            self.concept_id = TermConceptConceptId(self.concept_id)
+        if self.concept_curie is not None and not isinstance(self.concept_curie, ConceptConceptCurie):
+            self.concept_curie = ConceptConceptCurie(self.concept_curie)
 
-        if not isinstance(self.parent_id, list):
-            self.parent_id = [self.parent_id] if self.parent_id is not None else []
-        self.parent_id = [v if isinstance(v, TermConceptConceptId) else TermConceptConceptId(v) for v in self.parent_id]
+        if self.parent_concept_curie is not None and not isinstance(self.parent_concept_curie, ConceptConceptCurie):
+            self.parent_concept_curie = ConceptConceptCurie(self.parent_concept_curie)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class TermCrossReference(HasConceptId):
+class CrossReference(YAMLRoot):
     """
     References to other terms that are encountered during traversal/loading
     """
@@ -265,18 +248,45 @@ class TermCrossReference(HasConceptId):
     class_name: ClassVar[str] = "TermCrossReference"
     class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermCrossReference
 
-    concept_id: Union[str, TermConceptConceptId] = None
-    target_concept_id: Optional[Union[str, TermConceptConceptId]] = None
+    concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
+    target_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
     mapping_relationship: Optional[Union[str, "EnumMappingRelationship"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.concept_id):
-            self.MissingRequiredField("concept_id")
-        if not isinstance(self.concept_id, TermConceptConceptId):
-            self.concept_id = TermConceptConceptId(self.concept_id)
+        if self.concept_curie is not None and not isinstance(self.concept_curie, ConceptConceptCurie):
+            self.concept_curie = ConceptConceptCurie(self.concept_curie)
 
-        if self.target_concept_id is not None and not isinstance(self.target_concept_id, TermConceptConceptId):
-            self.target_concept_id = TermConceptConceptId(self.target_concept_id)
+        if self.target_concept_curie is not None and not isinstance(self.target_concept_curie, ConceptConceptCurie):
+            self.target_concept_curie = ConceptConceptCurie(self.target_concept_curie)
+
+        if self.mapping_relationship is not None and not isinstance(self.mapping_relationship, EnumMappingRelationship):
+            self.mapping_relationship = EnumMappingRelationship(self.mapping_relationship)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ConceptRelationship(YAMLRoot):
+    """
+    Relationships between two terms.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["concept-relationship/ConceptRelationship"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:concept-relationship/ConceptRelationship"
+    class_name: ClassVar[str] = "ConceptRelationship"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.ConceptRelationship
+
+    concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
+    target_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
+    mapping_relationship: Optional[Union[str, "EnumMappingRelationship"]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.concept_curie is not None and not isinstance(self.concept_curie, ConceptConceptCurie):
+            self.concept_curie = ConceptConceptCurie(self.concept_curie)
+
+        if self.target_concept_curie is not None and not isinstance(self.target_concept_curie, ConceptConceptCurie):
+            self.target_concept_curie = ConceptConceptCurie(self.target_concept_curie)
 
         if self.mapping_relationship is not None and not isinstance(self.mapping_relationship, EnumMappingRelationship):
             self.mapping_relationship = EnumMappingRelationship(self.mapping_relationship)
@@ -319,14 +329,14 @@ class EnumMappingRelationship(EnumDefinitionImpl):
 class slots:
     pass
 
-slots.ontology_id = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/ontology_id'], name="ontology_id", curie=MD_TERMINOLOGY_TROVE.curie('ontology/ontology_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.ontology_id, domain=None, range=Union[str, TermOntologyOntologyId])
+slots.vocabulary_id = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/vocabulary_id'], name="vocabulary_id", curie=MD_TERMINOLOGY_TROVE.curie('ontology/vocabulary_id'),
+                   model_uri=MD_TERMINOLOGY_TROVE.vocabulary_id, domain=None, range=Union[str, VocabularyVocabularyId])
 
 slots.name = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/name'], name="name", curie=MD_TERMINOLOGY_TROVE.curie('ontology/name'),
                    model_uri=MD_TERMINOLOGY_TROVE.name, domain=None, range=Optional[str])
 
-slots.ontology_uri = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/ontology_uri'], name="ontology_uri", curie=MD_TERMINOLOGY_TROVE.curie('ontology/ontology_uri'),
-                   model_uri=MD_TERMINOLOGY_TROVE.ontology_uri, domain=None, range=Union[str, URI])
+slots.vocabulary_uri = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/vocabulary_uri'], name="vocabulary_uri", curie=MD_TERMINOLOGY_TROVE.curie('ontology/vocabulary_uri'),
+                   model_uri=MD_TERMINOLOGY_TROVE.vocabulary_uri, domain=None, range=Union[str, URI])
 
 slots.fhir_system = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/fhir_system'], name="fhir_system", curie=MD_TERMINOLOGY_TROVE.curie('ontology/fhir_system'),
                    model_uri=MD_TERMINOLOGY_TROVE.fhir_system, domain=None, range=Union[str, URI])
@@ -338,11 +348,20 @@ slots.prefix = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/prefix'], name="prefix", 
 slots.description = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/description'], name="description", curie=MD_TERMINOLOGY_TROVE.curie('ontology/description'),
                    model_uri=MD_TERMINOLOGY_TROVE.description, domain=None, range=Optional[str])
 
+slots.version = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/version'], name="version", curie=MD_TERMINOLOGY_TROVE.curie('ontology/version'),
+                   model_uri=MD_TERMINOLOGY_TROVE.version, domain=None, range=Optional[str])
+
 slots.source = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/source'], name="source", curie=MD_TERMINOLOGY_TROVE.curie('ontology/source'),
                    model_uri=MD_TERMINOLOGY_TROVE.source, domain=None, range=Optional[str])
 
-slots.concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.concept_id, domain=None, range=Union[str, URIorCURIE])
+slots.concept_curie = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_curie'], name="concept_curie", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_curie'),
+                   model_uri=MD_TERMINOLOGY_TROVE.concept_curie, domain=None, range=Optional[Union[str, ConceptConceptCurie]])
+
+slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'], name="concept_code", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_code'),
+                   model_uri=MD_TERMINOLOGY_TROVE.concept_code, domain=None, range=str)
+
+slots.omop_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/omop_concept_id'], name="omop_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/omop_concept_id'),
+                   model_uri=MD_TERMINOLOGY_TROVE.omop_concept_id, domain=None, range=Optional[int])
 
 slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'], name="concept_code", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_code'),
                    model_uri=MD_TERMINOLOGY_TROVE.concept_code, domain=None, range=str)
@@ -365,26 +384,20 @@ slots.display = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/display'], name="dis
 slots.definition = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/definition'], name="definition", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/definition'),
                    model_uri=MD_TERMINOLOGY_TROVE.definition, domain=None, range=Optional[str])
 
-slots.version = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/version'], name="version", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/version'),
-                   model_uri=MD_TERMINOLOGY_TROVE.version, domain=None, range=Optional[str])
-
-slots.parent_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-hierarchy-map/parent_id'], name="parent_id", curie=MD_TERMINOLOGY_TROVE.curie('term-hierarchy-map/parent_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.parent_id, domain=None, range=Optional[Union[Union[str, TermConceptConceptId], list[Union[str, TermConceptConceptId]]]])
-
-slots.target_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-cross-reference/target_concept_id'], name="target_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-cross-reference/target_concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.target_concept_id, domain=None, range=Optional[Union[str, TermConceptConceptId]])
+slots.parent_concept_curie = Slot(uri=MD_TERMINOLOGY_TROVE['term-hierarchy-map/parent_concept_curie'], name="parent_concept_curie", curie=MD_TERMINOLOGY_TROVE.curie('term-hierarchy-map/parent_concept_curie'),
+                   model_uri=MD_TERMINOLOGY_TROVE.parent_concept_curie, domain=None, range=Optional[Union[str, ConceptConceptCurie]])
 
 slots.mapping_relationship = Slot(uri=MD_TERMINOLOGY_TROVE['term-cross-reference/mapping_relationship'], name="mapping_relationship", curie=MD_TERMINOLOGY_TROVE.curie('term-cross-reference/mapping_relationship'),
                    model_uri=MD_TERMINOLOGY_TROVE.mapping_relationship, domain=None, range=Optional[Union[str, "EnumMappingRelationship"]])
 
-slots.TermOntology_ontology_id = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/ontology_id'], name="TermOntology_ontology_id", curie=MD_TERMINOLOGY_TROVE.curie('ontology/ontology_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.TermOntology_ontology_id, domain=TermOntology, range=Union[str, TermOntologyOntologyId])
+slots.target_concept_curie = Slot(uri=MD_TERMINOLOGY_TROVE['concept-relationship/target_concept_curie'], name="target_concept_curie", curie=MD_TERMINOLOGY_TROVE.curie('concept-relationship/target_concept_curie'),
+                   model_uri=MD_TERMINOLOGY_TROVE.target_concept_curie, domain=None, range=Optional[Union[str, ConceptConceptCurie]])
 
-slots.TermConcept_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="TermConcept_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.TermConcept_concept_id, domain=TermConcept, range=Union[str, TermConceptConceptId])
+slots.relationship_curie = Slot(uri=MD_TERMINOLOGY_TROVE['concept-relationship/relationship_curie'], name="relationship_curie", curie=MD_TERMINOLOGY_TROVE.curie('concept-relationship/relationship_curie'),
+                   model_uri=MD_TERMINOLOGY_TROVE.relationship_curie, domain=None, range=Optional[Union[str, URIorCURIE]])
 
-slots.TermHierarchyMap_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="TermHierarchyMap_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.TermHierarchyMap_concept_id, domain=TermHierarchyMap, range=Union[str, TermConceptConceptId])
+slots.Vocabulary_vocabulary_id = Slot(uri=MD_TERMINOLOGY_TROVE['ontology/vocabulary_id'], name="Vocabulary_vocabulary_id", curie=MD_TERMINOLOGY_TROVE.curie('ontology/vocabulary_id'),
+                   model_uri=MD_TERMINOLOGY_TROVE.Vocabulary_vocabulary_id, domain=Vocabulary, range=Union[str, VocabularyVocabularyId])
 
-slots.TermCrossReference_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_id'], name="TermCrossReference_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_id'),
-                   model_uri=MD_TERMINOLOGY_TROVE.TermCrossReference_concept_id, domain=TermCrossReference, range=Union[str, TermConceptConceptId])
+slots.Concept_concept_curie = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_curie'], name="Concept_concept_curie", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_curie'),
+                   model_uri=MD_TERMINOLOGY_TROVE.Concept_concept_curie, domain=Concept, range=Union[str, ConceptConceptCurie])

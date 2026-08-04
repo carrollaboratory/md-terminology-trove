@@ -75,7 +75,8 @@ linkml_meta = LinkMLMeta({'default_prefix': 'md_terminology_trove',
                  'term_ontology',
                  'term_concept',
                  'term_hierarchy_map',
-                 'term_cross_reference'],
+                 'term_cross_reference',
+                 'concept_relationship'],
      'license': 'MIT',
      'name': 'md-terminology-trove',
      'prefixes': {'PATO': {'prefix_prefix': 'PATO',
@@ -123,33 +124,34 @@ class EnumMappingRelationship(str, Enum):
 
 
 
-class TermOntology(ConfiguredBaseModel):
+class Vocabulary(ConfiguredBaseModel):
     """
     Flat table containing each of the ontologies used for dataset annotations
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/ontology',
-         'slot_usage': {'ontology_id': {'identifier': True,
-                                        'name': 'ontology_id',
-                                        'range': 'string'}}})
+         'slot_usage': {'vocabulary_id': {'identifier': True,
+                                          'name': 'vocabulary_id',
+                                          'range': 'string'}}})
 
-    ontology_id: str = Field(default=..., title="Ontology ID", description="""The ID associated with the ontology inside the warehouse""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermOntology', 'TermConcept']} })
-    name: Optional[str] = Field(default=None, title="Ontology Name", description="""Full name for the ontology""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermOntology']} })
-    ontology_uri: str = Field(default=..., title="Ontology URI", description="""Official URI associated with the ontology""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermOntology']} })
-    fhir_system: str = Field(default=..., title="FHIR System", description="""System used within FHIR valuesets and codings""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermOntology']} })
+    vocabulary_id: str = Field(default=..., title="Vocabulary ID", description="""The ID associated with the vocabulary or ontology inside the warehouse""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary', 'Concept']} })
+    name: Optional[str] = Field(default=None, title="Vocabulary Name", description="""Full name for the ontology""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary']} })
+    vocabulary_uri: str = Field(default=..., title="Vocabulary URI", description="""Official URI associated with the vocabulary""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary']} })
+    fhir_system: str = Field(default=..., title="FHIR System", description="""System used within FHIR valuesets and codings""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary']} })
     prefix: Optional[str] = Field(default=None, title="Canonical Curie Prefix", description="""The authoritative namespace prefix allocated to the vocabulary. Used to resolve compact identifiers (CURIEs) to their full semantic URIs or FHIR system URLs.""", json_schema_extra = { "linkml_meta": {'comments': ['Must start with a letter; thereafter allows letters, digits, '
                       'underscores, hyphens, and dots to accommodate OLS/UMLS source '
                       'variability.',
                       'RISK: In order for all of our data to correctly join, the '
                       'format of the prefix must always align with the prefix used in '
                       'this table.'],
-         'domain_of': ['TermOntology'],
+         'domain_of': ['Vocabulary'],
          'todos': ['Ensure that MapDragon and TermWeaver both rely on the same rules '
                    'for prefixes']} })
-    description: Optional[str] = Field(default=None, title="Ontology description", description="""Ontology description""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermOntology']} })
+    description: Optional[str] = Field(default=None, title="Ontology description", description="""Ontology description""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary']} })
+    version: Optional[str] = Field(default=None, title="Version", description="""Version associated with the current vocabulary content""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary']} })
     source: Optional[str] = Field(default=None, title="Data source", description="""Source used for populating the terminologies members""", json_schema_extra = { "linkml_meta": {'comments': ["This is currently poorly defined because we haven't fully "
                       'defined the nature of the data pulls. Most likely it will end '
                       'up as a filename (.owl, .obo, etc) or another tool, etc'],
-         'domain_of': ['TermOntology']} })
+         'domain_of': ['Vocabulary']} })
 
     @field_validator('prefix')
     def pattern_prefix(cls, v):
@@ -165,64 +167,76 @@ class TermOntology(ConfiguredBaseModel):
         return v
 
 
-class HasConceptId(ConfiguredBaseModel):
-    """
-    Base class for all concept tables
-    """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'schema:Thing',
-         'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove'})
-
-    concept_id: str = Field(default=..., title="Concept ID", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['HasConceptId']} })
-
-
-class TermConcept(HasConceptId):
+class Concept(ConfiguredBaseModel):
     """
     Flat table containing the curied codes for all ontological terms used for dataset annotations.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/term-concept',
-         'slot_usage': {'concept_id': {'identifier': True,
-                                       'name': 'concept_id',
-                                       'range': 'uriorcurie'}}})
+         'slot_usage': {'concept_curie': {'identifier': True,
+                                          'name': 'concept_curie',
+                                          'range': 'uriorcurie',
+                                          'required': True}}})
 
-    ontology_id: str = Field(default=..., title="Ontology ID", description="""The ID associated with the ontology inside the warehouse""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermOntology', 'TermConcept']} })
-    concept_code: str = Field(default=..., title="Concept Code", description="""Identifier as it is defined within the ontology""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    display: Optional[str] = Field(default=None, title="Display", description="""The friendly display string of the coded term""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    definition: Optional[str] = Field(default=None, title="Definition", description="""Detailed description for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    version: Optional[str] = Field(default=None, title="Version", description="""Version associated with the current ontology content""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    dbt_updated_at: datetime  = Field(default=..., description="""The timestamp when the source record was last changed, used by dbt to detect if an update has occurred.""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    dbt_valid_from: datetime  = Field(default=..., description="""The timestamp indicating when this specific row's historical version became active.""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    dbt_valid_to: Optional[datetime ] = Field(default=None, description="""The timestamp indicating when this historical version was superseded. It remains NULL if the row is the currently active version.""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    dbt_scd_id: Optional[str] = Field(default=None, description="""Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermConcept']} })
-    concept_id: str = Field(default=..., title="Concept ID", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['HasConceptId']} })
+    concept_curie: str = Field(default=..., title="Concept Curie", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept',
+                       'HierarchyMap',
+                       'CrossReference',
+                       'ConceptRelationship']} })
+    vocabulary_id: str = Field(default=..., title="Vocabulary ID", description="""The ID associated with the vocabulary or ontology inside the warehouse""", json_schema_extra = { "linkml_meta": {'domain_of': ['Vocabulary', 'Concept']} })
+    concept_code: str = Field(default=..., title="Concept Code", description="""Identifier as it is defined within the ontology""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    omop_concept_id: Optional[int] = Field(default=None, title="OMOP Concept ID", description="""The OMOP Concept ID for the term, if applicable""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    display: Optional[str] = Field(default=None, title="Display", description="""The friendly display string of the coded term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    definition: Optional[str] = Field(default=None, title="Definition", description="""Detailed description for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    dbt_updated_at: datetime  = Field(default=..., description="""The timestamp when the source record was last changed, used by dbt to detect if an update has occurred.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    dbt_valid_from: datetime  = Field(default=..., description="""The timestamp indicating when this specific row's historical version became active.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    dbt_valid_to: Optional[datetime ] = Field(default=None, description="""The timestamp indicating when this historical version was superseded. It remains NULL if the row is the currently active version.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    dbt_scd_id: Optional[str] = Field(default=None, description="""Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
 
 
-class TermHierarchyMap(HasConceptId):
+class HierarchyMap(ConfiguredBaseModel):
     """
-    Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem    is_a: HasConceptId
+    Basic parent/child relationships, suitable for populating a hierarchical FHIR codesystem
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map',
-         'slot_usage': {'concept_id': {'name': 'concept_id', 'range': 'TermConcept'}}})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map'})
 
-    parent_id: Optional[list[str]] = Field(default=None, title="Parent ID", description="""The immediate ancester of the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermHierarchyMap']} })
-    concept_id: str = Field(default=..., title="Concept ID", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['HasConceptId']} })
+    concept_curie: Optional[str] = Field(default=None, title="Concept Curie", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept',
+                       'HierarchyMap',
+                       'CrossReference',
+                       'ConceptRelationship']} })
+    parent_concept_curie: Optional[str] = Field(default=None, title="Parent Concept Curie", description="""The immediate ancester of the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['HierarchyMap']} })
 
 
-class TermCrossReference(HasConceptId):
+class CrossReference(ConfiguredBaseModel):
     """
     References to other terms that are encountered during traversal/loading
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference',
-         'slot_usage': {'concept_id': {'name': 'concept_id', 'range': 'TermConcept'}}})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference'})
 
-    target_concept_id: Optional[str] = Field(default=None, title="Target Concept ID", description="""The concept to which this term relates""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermCrossReference']} })
-    mapping_relationship: Optional[EnumMappingRelationship] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['TermCrossReference']} })
-    concept_id: str = Field(default=..., title="Concept ID", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['HasConceptId']} })
+    concept_curie: Optional[str] = Field(default=None, title="Concept Curie", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept',
+                       'HierarchyMap',
+                       'CrossReference',
+                       'ConceptRelationship']} })
+    target_concept_curie: Optional[str] = Field(default=None, title="Target Concept ID", description="""The concept to which this term relates""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
+    mapping_relationship: Optional[EnumMappingRelationship] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
+
+
+class ConceptRelationship(ConfiguredBaseModel):
+    """
+    Relationships between two terms.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship'})
+
+    concept_curie: Optional[str] = Field(default=None, title="Concept Curie", description="""The standardized curie for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept',
+                       'HierarchyMap',
+                       'CrossReference',
+                       'ConceptRelationship']} })
+    target_concept_curie: Optional[str] = Field(default=None, title="Target Concept ID", description="""The concept to which this term relates""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
+    mapping_relationship: Optional[EnumMappingRelationship] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
 
 
 # Model rebuild
 # see https://pydantic-docs.helpmanual.io/usage/models/#rebuilding-a-model
-TermOntology.model_rebuild()
-HasConceptId.model_rebuild()
-TermConcept.model_rebuild()
-TermHierarchyMap.model_rebuild()
-TermCrossReference.model_rebuild()
+Vocabulary.model_rebuild()
+Concept.model_rebuild()
+HierarchyMap.model_rebuild()
+CrossReference.model_rebuild()
+ConceptRelationship.model_rebuild()

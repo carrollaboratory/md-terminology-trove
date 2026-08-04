@@ -104,7 +104,7 @@ clean: _wsl2_compat_check _clean_project
 
 # (Re-)Generate project and documentation locally
 [group('model development')]
-site: gen-project gen-doc _gen_sqla
+site: gen-project gen-doc _dbt
 
 # SQL Alchemy model
 [group('model development')]

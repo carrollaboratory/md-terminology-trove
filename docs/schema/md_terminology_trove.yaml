@@ -11,6 +11,7 @@ imports:
 - term_concept
 - term_hierarchy_map
 - term_cross_reference
+- concept_relationship
 - md_terminology_trove
 license: MIT
 prefixes:
@@ -337,47 +338,43 @@ enums:
         description: The two are associated in some way, but not interchangeable.
         meaning: skos:relatedMatch
 slots:
-  ontology_id:
-    name: ontology_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
-    description: The ID associated with the ontology inside the warehouse
-    title: Ontology ID
+  vocabulary_id:
+    name: vocabulary_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/vocabulary_id
+    description: The ID associated with the vocabulary or ontology inside the warehouse
+    title: Vocabulary ID
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
-    identifier: false
-    owner: TermConcept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/vocabulary_id
+    owner: Concept
     domain_of:
-    - TermOntology
-    - TermConcept
-    range: TermOntology
+    - Vocabulary
+    - Concept
+    range: Vocabulary
     required: true
-    multivalued: false
   name:
     name: name
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/name
     description: Full name for the ontology
-    title: Ontology Name
+    title: Vocabulary Name
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/name
-    owner: TermOntology
+    owner: Vocabulary
     domain_of:
-    - TermOntology
+    - Vocabulary
     range: string
     required: false
-    multivalued: false
-  ontology_uri:
-    name: ontology_uri
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_uri
-    description: Official URI associated with the ontology
-    title: Ontology URI
+  vocabulary_uri:
+    name: vocabulary_uri
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/vocabulary_uri
+    description: Official URI associated with the vocabulary
+    title: Vocabulary URI
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_uri
-    owner: TermOntology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/vocabulary_uri
+    owner: Vocabulary
     domain_of:
-    - TermOntology
+    - Vocabulary
     range: uri
     required: true
-    multivalued: false
   fhir_system:
     name: fhir_system
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/fhir_system
@@ -385,12 +382,11 @@ slots:
     title: FHIR System
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/fhir_system
-    owner: TermOntology
+    owner: Vocabulary
     domain_of:
-    - TermOntology
+    - Vocabulary
     range: uri
     required: true
-    multivalued: false
   prefix:
     name: prefix
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/prefix
@@ -407,11 +403,10 @@ slots:
       must always align with the prefix used in this table.'
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/prefix
-    owner: TermOntology
+    owner: Vocabulary
     domain_of:
-    - TermOntology
+    - Vocabulary
     range: string
-    multivalued: false
     pattern: ^[A-Za-z][A-Za-z0-9_\-\.]*$
   description:
     name: description
@@ -420,9 +415,21 @@ slots:
     title: Ontology description
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/description
-    owner: TermOntology
+    owner: Vocabulary
     domain_of:
-    - TermOntology
+    - Vocabulary
+    range: string
+    multivalued: false
+  version:
+    name: version
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/version
+    description: Version associated with the current vocabulary content
+    title: Version
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/version
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
     range: string
     multivalued: false
   source:
@@ -436,25 +443,25 @@ slots:
       or another tool, etc
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/source
-    owner: TermOntology
+    owner: Vocabulary
     domain_of:
-    - TermOntology
+    - Vocabulary
     range: string
     multivalued: false
-  concept_id:
-    name: concept_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+  concept_curie:
+    name: concept_curie
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_curie
     description: The standardized curie for the term
-    title: Concept ID
+    title: Concept Curie
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
-    identifier: false
-    owner: HasConceptId
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_curie
+    owner: ConceptRelationship
     domain_of:
-    - HasConceptId
-    range: uriorcurie
-    required: true
-    multivalued: false
+    - Concept
+    - HierarchyMap
+    - CrossReference
+    - ConceptRelationship
+    range: Concept
   concept_code:
     name: concept_code
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
@@ -462,22 +469,31 @@ slots:
     title: Concept Code
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
-    identifier: false
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: string
     required: true
-    multivalued: false
+  omop_concept_id:
+    name: omop_concept_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/omop_concept_id
+    description: The OMOP Concept ID for the term, if applicable
+    title: OMOP Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/omop_concept_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: integer
   dbt_scd_id:
     name: dbt_scd_id
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
     description: Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration.
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: string
     required: false
   dbt_updated_at:
@@ -487,9 +503,9 @@ slots:
       to detect if an update has occurred.
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_updated_at
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: datetime
     required: true
   dbt_valid_from:
@@ -499,9 +515,9 @@ slots:
       became active.
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_valid_from
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: datetime
     required: true
   dbt_valid_to:
@@ -511,9 +527,9 @@ slots:
       It remains NULL if the row is the currently active version.
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_valid_to
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: datetime
     required: false
   display:
@@ -523,9 +539,9 @@ slots:
     title: Display
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/display
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: string
     multivalued: false
   definition:
@@ -535,47 +551,22 @@ slots:
     title: Definition
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/definition
-    owner: TermConcept
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     range: string
     multivalued: false
-  version:
-    name: version
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/version
-    description: Version associated with the current ontology content
-    title: Version
-    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/version
-    owner: TermConcept
-    domain_of:
-    - TermConcept
-    range: string
-    multivalued: false
-  parent_id:
-    name: parent_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_id
+  parent_concept_curie:
+    name: parent_concept_curie
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_concept_curie
     description: The immediate ancester of the term
-    title: Parent ID
+    title: Parent Concept Curie
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_id
-    owner: TermHierarchyMap
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_concept_curie
+    owner: HierarchyMap
     domain_of:
-    - TermHierarchyMap
-    range: TermConcept
-    multivalued: true
-  target_concept_id:
-    name: target_concept_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/target_concept_id
-    description: The concept to which this term relates
-    title: Target Concept ID
-    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/target_concept_id
-    owner: TermCrossReference
-    domain_of:
-    - TermCrossReference
-    range: TermConcept
-    multivalued: false
+    - HierarchyMap
+    range: Concept
   mapping_relationship:
     name: mapping_relationship
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/mapping_relationship
@@ -583,174 +574,147 @@ slots:
     title: Mapping Relationship
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/mapping_relationship
-    owner: TermCrossReference
+    owner: CrossReference
     domain_of:
-    - TermCrossReference
+    - CrossReference
     range: EnumMappingRelationship
-    multivalued: false
-  TermOntology_ontology_id:
-    name: TermOntology_ontology_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
-    description: The ID associated with the ontology inside the warehouse
-    title: Ontology ID
-    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
-    is_a: ontology_id
-    domain: TermOntology
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/ontology_id
-    identifier: true
-    alias: ontology_id
-    owner: TermOntology
+  target_concept_curie:
+    name: target_concept_curie
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/target_concept_curie
+    description: The concept to which this term relates
+    title: Target Concept ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/target_concept_curie
+    owner: ConceptRelationship
     domain_of:
-    - TermOntology
+    - CrossReference
+    - ConceptRelationship
+    range: Concept
+  relationship_curie:
+    name: relationship_curie
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/relationship_curie
+    description: The relationship between the subject (this term) and the object (target_concept_id)
+    title: Mapping Relationship
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/relationship_curie
+    owner: ConceptRelationship
+    domain_of:
+    - ConceptRelationship
+    range: uriorcurie
+  Vocabulary_vocabulary_id:
+    name: Vocabulary_vocabulary_id
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/vocabulary_id
+    description: The ID associated with the vocabulary or ontology inside the warehouse
+    title: Vocabulary ID
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
+    is_a: vocabulary_id
+    domain: Vocabulary
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/vocabulary_id
+    identifier: true
+    alias: vocabulary_id
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
     is_usage_slot: true
-    usage_slot_name: ontology_id
+    usage_slot_name: vocabulary_id
     range: string
     required: true
-    multivalued: false
-  TermConcept_concept_id:
-    name: TermConcept_concept_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+  Concept_concept_curie:
+    name: Concept_concept_curie
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_curie
     description: The standardized curie for the term
-    title: Concept ID
+    title: Concept Curie
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
-    is_a: concept_id
-    domain: TermConcept
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
+    is_a: concept_curie
+    domain: Concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_curie
     identifier: true
-    alias: concept_id
-    owner: TermConcept
+    alias: concept_curie
+    owner: Concept
     domain_of:
-    - TermConcept
+    - Concept
     is_usage_slot: true
-    usage_slot_name: concept_id
+    usage_slot_name: concept_curie
     range: uriorcurie
     required: true
-    multivalued: false
-  TermHierarchyMap_concept_id:
-    name: TermHierarchyMap_concept_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
-    description: The standardized curie for the term
-    title: Concept ID
-    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
-    is_a: concept_id
-    domain: TermHierarchyMap
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
-    identifier: false
-    alias: concept_id
-    owner: TermHierarchyMap
-    domain_of:
-    - TermHierarchyMap
-    is_usage_slot: true
-    usage_slot_name: concept_id
-    range: TermConcept
-    required: true
-    multivalued: false
-  TermCrossReference_concept_id:
-    name: TermCrossReference_concept_id
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
-    description: The standardized curie for the term
-    title: Concept ID
-    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
-    is_a: concept_id
-    domain: TermCrossReference
-    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
-    identifier: false
-    alias: concept_id
-    owner: TermCrossReference
-    domain_of:
-    - TermCrossReference
-    is_usage_slot: true
-    usage_slot_name: concept_id
-    range: TermConcept
-    required: true
-    multivalued: false
 classes:
-  HasConceptId:
-    name: HasConceptId
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/HasConceptId
-    description: Base class for all concept tables
-    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove
-    mappings:
-    - schema:Thing
-    slots:
-    - concept_id
-    class_uri: schema:Thing
-  TermOntology:
-    name: TermOntology
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/TermOntology
+  Vocabulary:
+    name: Vocabulary
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/Vocabulary
     description: Flat table containing each of the ontologies used for dataset annotations
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/ontology
     slots:
-    - TermOntology_ontology_id
+    - Vocabulary_vocabulary_id
     - name
-    - ontology_uri
+    - vocabulary_uri
     - fhir_system
     - prefix
     - description
+    - version
     - source
     slot_usage:
-      ontology_id:
-        name: ontology_id
+      vocabulary_id:
+        name: vocabulary_id
         identifier: true
         range: string
-    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/TermOntology
-  TermConcept:
-    name: TermConcept
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/TermConcept
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/ontology/Vocabulary
+  Concept:
+    name: Concept
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/Concept
     description: Flat table containing the curied codes for all ontological terms
       used for dataset annotations.
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
-    is_a: HasConceptId
     slots:
-    - ontology_id
+    - Concept_concept_curie
+    - vocabulary_id
     - concept_code
+    - omop_concept_id
     - display
     - definition
-    - version
     - dbt_updated_at
     - dbt_valid_from
     - dbt_valid_to
     - dbt_scd_id
-    - TermConcept_concept_id
     slot_usage:
-      concept_id:
-        name: concept_id
+      concept_curie:
+        name: concept_curie
         identifier: true
         range: uriorcurie
-    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/TermConcept
-  TermHierarchyMap:
-    name: TermHierarchyMap
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/TermHierarchyMap
-    description: 'Basic parent/child relationships, suitable for populating a hierarchical
-      FHIR codesystem    is_a: HasConceptId'
+        required: true
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/Concept
+  HierarchyMap:
+    name: HierarchyMap
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/HierarchyMap
+    description: Basic parent/child relationships, suitable for populating a hierarchical
+      FHIR codesystem
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
-    is_a: HasConceptId
     slots:
-    - parent_id
-    - TermHierarchyMap_concept_id
-    slot_usage:
-      concept_id:
-        name: concept_id
-        range: TermConcept
-    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/TermHierarchyMap
-  TermCrossReference:
-    name: TermCrossReference
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
+    - concept_curie
+    - parent_concept_curie
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/HierarchyMap
+  CrossReference:
+    name: CrossReference
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/CrossReference
     description: References to other terms that are encountered during traversal/loading
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
-    is_a: HasConceptId
     slots:
-    - target_concept_id
+    - concept_curie
+    - target_concept_curie
     - mapping_relationship
-    - TermCrossReference_concept_id
-    slot_usage:
-      concept_id:
-        name: concept_id
-        range: TermConcept
-    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/CrossReference
+  ConceptRelationship:
+    name: ConceptRelationship
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/ConceptRelationship
+    description: Relationships between two terms.
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship
+    slots:
+    - concept_curie
+    - target_concept_curie
+    - relationship_curie
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/concept-relationship/ConceptRelationship
 metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
-source_file_date: '2026-05-29T13:24:27'
-source_file_size: 954
-generation_date: '2026-06-10T11:10:12'
+source_file_date: '2026-08-04T14:32:33'
+source_file_size: 836
+generation_date: '2026-08-04T14:59:41'
 

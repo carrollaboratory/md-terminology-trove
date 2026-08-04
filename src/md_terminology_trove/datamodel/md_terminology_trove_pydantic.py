@@ -216,7 +216,7 @@ class CrossReference(ConfiguredBaseModel):
                        'CrossReference',
                        'ConceptRelationship']} })
     target_concept_curie: Optional[str] = Field(default=None, title="Target Concept ID", description="""The concept to which this term relates""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
-    mapping_relationship: Optional[EnumMappingRelationship] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
+    mapping_relationship: Optional[EnumMappingRelationship] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference']} })
 
 
 class ConceptRelationship(ConfiguredBaseModel):
@@ -230,7 +230,7 @@ class ConceptRelationship(ConfiguredBaseModel):
                        'CrossReference',
                        'ConceptRelationship']} })
     target_concept_curie: Optional[str] = Field(default=None, title="Target Concept ID", description="""The concept to which this term relates""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
-    mapping_relationship: Optional[EnumMappingRelationship] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['CrossReference', 'ConceptRelationship']} })
+    relationship_curie: Optional[str] = Field(default=None, title="Mapping Relationship", description="""The relationship between the subject (this term) and the object (target_concept_id)""", json_schema_extra = { "linkml_meta": {'domain_of': ['ConceptRelationship']} })
 
 
 # Model rebuild

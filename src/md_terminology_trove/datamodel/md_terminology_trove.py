@@ -1,5 +1,5 @@
 # Auto generated from md_terminology_trove.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-08T14:15:39
+# Generation date: 2026-08-04T14:59:35
 # Schema: md-terminology-trove
 #
 # id: https://w3id.org/carrollaboratory/md-terminology-trove
@@ -178,11 +178,6 @@ class Concept(YAMLRoot):
         if not isinstance(self.concept_code, str):
             self.concept_code = str(self.concept_code)
 
-        if self._is_empty(self.concept_code):
-            self.MissingRequiredField("concept_code")
-        if not isinstance(self.concept_code, str):
-            self.concept_code = str(self.concept_code)
-
         if self._is_empty(self.dbt_updated_at):
             self.MissingRequiredField("dbt_updated_at")
         if not isinstance(self.dbt_updated_at, XSDDateTime):
@@ -218,10 +213,10 @@ class HierarchyMap(YAMLRoot):
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-hierarchy-map/TermHierarchyMap"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-hierarchy-map/TermHierarchyMap"
-    class_name: ClassVar[str] = "TermHierarchyMap"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermHierarchyMap
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-hierarchy-map/HierarchyMap"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-hierarchy-map/HierarchyMap"
+    class_name: ClassVar[str] = "HierarchyMap"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.HierarchyMap
 
     concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
     parent_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
@@ -243,10 +238,10 @@ class CrossReference(YAMLRoot):
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-cross-reference/TermCrossReference"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-cross-reference/TermCrossReference"
-    class_name: ClassVar[str] = "TermCrossReference"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermCrossReference
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-cross-reference/CrossReference"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-cross-reference/CrossReference"
+    class_name: ClassVar[str] = "CrossReference"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.CrossReference
 
     concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
     target_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
@@ -279,7 +274,7 @@ class ConceptRelationship(YAMLRoot):
 
     concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
     target_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
-    mapping_relationship: Optional[Union[str, "EnumMappingRelationship"]] = None
+    relationship_curie: Optional[Union[str, URIorCURIE]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.concept_curie is not None and not isinstance(self.concept_curie, ConceptConceptCurie):
@@ -288,8 +283,8 @@ class ConceptRelationship(YAMLRoot):
         if self.target_concept_curie is not None and not isinstance(self.target_concept_curie, ConceptConceptCurie):
             self.target_concept_curie = ConceptConceptCurie(self.target_concept_curie)
 
-        if self.mapping_relationship is not None and not isinstance(self.mapping_relationship, EnumMappingRelationship):
-            self.mapping_relationship = EnumMappingRelationship(self.mapping_relationship)
+        if self.relationship_curie is not None and not isinstance(self.relationship_curie, URIorCURIE):
+            self.relationship_curie = URIorCURIE(self.relationship_curie)
 
         super().__post_init__(**kwargs)
 
@@ -362,9 +357,6 @@ slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'],
 
 slots.omop_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/omop_concept_id'], name="omop_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/omop_concept_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.omop_concept_id, domain=None, range=Optional[int])
-
-slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'], name="concept_code", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_code'),
-                   model_uri=MD_TERMINOLOGY_TROVE.concept_code, domain=None, range=str)
 
 slots.dbt_scd_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/dbt_scd_id'], name="dbt_scd_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/dbt_scd_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.dbt_scd_id, domain=None, range=Optional[str])

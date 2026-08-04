@@ -455,6 +455,20 @@ slots:
     range: uriorcurie
     required: true
     multivalued: false
+  concept_code:
+    name: concept_code
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
+    description: Identifier as it is defined within the ontology
+    title: Concept Code
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_code
+    identifier: false
+    owner: TermConcept
+    domain_of:
+    - TermConcept
+    range: string
+    required: true
+    multivalued: false
   dbt_scd_id:
     name: dbt_scd_id
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
@@ -545,9 +559,9 @@ slots:
     title: Parent ID
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/parent_id
-    owner: HierarchyMap
+    owner: TermHierarchyMap
     domain_of:
-    - HierarchyMap
+    - TermHierarchyMap
     range: TermConcept
     multivalued: true
   target_concept_id:
@@ -557,9 +571,9 @@ slots:
     title: Target Concept ID
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/target_concept_id
-    owner: CrossReference
+    owner: TermCrossReference
     domain_of:
-    - CrossReference
+    - TermCrossReference
     range: TermConcept
     multivalued: false
   mapping_relationship:
@@ -569,9 +583,9 @@ slots:
     title: Mapping Relationship
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/mapping_relationship
-    owner: CrossReference
+    owner: TermCrossReference
     domain_of:
-    - CrossReference
+    - TermCrossReference
     range: EnumMappingRelationship
     multivalued: false
   TermOntology_ontology_id:
@@ -612,39 +626,39 @@ slots:
     range: uriorcurie
     required: true
     multivalued: false
-  HierarchyMap_concept_id:
-    name: HierarchyMap_concept_id
+  TermHierarchyMap_concept_id:
+    name: TermHierarchyMap_concept_id
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
     description: The standardized curie for the term
     title: Concept ID
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     is_a: concept_id
-    domain: HierarchyMap
+    domain: TermHierarchyMap
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
     identifier: false
     alias: concept_id
-    owner: HierarchyMap
+    owner: TermHierarchyMap
     domain_of:
-    - HierarchyMap
+    - TermHierarchyMap
     is_usage_slot: true
     usage_slot_name: concept_id
     range: TermConcept
     required: true
     multivalued: false
-  CrossReference_concept_id:
-    name: CrossReference_concept_id
+  TermCrossReference_concept_id:
+    name: TermCrossReference_concept_id
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
     description: The standardized curie for the term
     title: Concept ID
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     is_a: concept_id
-    domain: CrossReference
+    domain: TermCrossReference
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/concept_id
     identifier: false
     alias: concept_id
-    owner: CrossReference
+    owner: TermCrossReference
     domain_of:
-    - CrossReference
+    - TermCrossReference
     is_usage_slot: true
     usage_slot_name: concept_id
     range: TermConcept
@@ -689,6 +703,7 @@ classes:
     is_a: HasConceptId
     slots:
     - ontology_id
+    - concept_code
     - display
     - definition
     - version
@@ -703,39 +718,39 @@ classes:
         identifier: true
         range: uriorcurie
     class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/TermConcept
-  HierarchyMap:
-    name: HierarchyMap
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/HierarchyMap
+  TermHierarchyMap:
+    name: TermHierarchyMap
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/TermHierarchyMap
     description: 'Basic parent/child relationships, suitable for populating a hierarchical
       FHIR codesystem    is_a: HasConceptId'
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map
     is_a: HasConceptId
     slots:
     - parent_id
-    - HierarchyMap_concept_id
+    - TermHierarchyMap_concept_id
     slot_usage:
       concept_id:
         name: concept_id
         range: TermConcept
-    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/HierarchyMap
-  CrossReference:
-    name: CrossReference
-    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/CrossReference
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-hierarchy-map/TermHierarchyMap
+  TermCrossReference:
+    name: TermCrossReference
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
     description: References to other terms that are encountered during traversal/loading
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference
     is_a: HasConceptId
     slots:
     - target_concept_id
     - mapping_relationship
-    - CrossReference_concept_id
+    - TermCrossReference_concept_id
     slot_usage:
       concept_id:
         name: concept_id
         range: TermConcept
-    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/CrossReference
+    class_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-cross-reference/TermCrossReference
 metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
 source_file_date: '2026-05-29T13:24:27'
 source_file_size: 954
-generation_date: '2026-05-29T13:26:29'
+generation_date: '2026-06-10T11:10:12'
 

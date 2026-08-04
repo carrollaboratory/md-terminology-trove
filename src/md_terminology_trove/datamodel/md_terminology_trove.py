@@ -178,6 +178,11 @@ class Concept(YAMLRoot):
         if not isinstance(self.concept_code, str):
             self.concept_code = str(self.concept_code)
 
+        if self._is_empty(self.concept_code):
+            self.MissingRequiredField("concept_code")
+        if not isinstance(self.concept_code, str):
+            self.concept_code = str(self.concept_code)
+
         if self._is_empty(self.dbt_updated_at):
             self.MissingRequiredField("dbt_updated_at")
         if not isinstance(self.dbt_updated_at, XSDDateTime):
@@ -213,10 +218,10 @@ class HierarchyMap(YAMLRoot):
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-hierarchy-map/HierarchyMap"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-hierarchy-map/HierarchyMap"
-    class_name: ClassVar[str] = "HierarchyMap"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.HierarchyMap
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-hierarchy-map/TermHierarchyMap"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-hierarchy-map/TermHierarchyMap"
+    class_name: ClassVar[str] = "TermHierarchyMap"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermHierarchyMap
 
     concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
     parent_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
@@ -238,10 +243,10 @@ class CrossReference(YAMLRoot):
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-cross-reference/CrossReference"]
-    class_class_curie: ClassVar[str] = "md_terminology_trove:term-cross-reference/CrossReference"
-    class_name: ClassVar[str] = "CrossReference"
-    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.CrossReference
+    class_class_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE["term-cross-reference/TermCrossReference"]
+    class_class_curie: ClassVar[str] = "md_terminology_trove:term-cross-reference/TermCrossReference"
+    class_name: ClassVar[str] = "TermCrossReference"
+    class_model_uri: ClassVar[URIRef] = MD_TERMINOLOGY_TROVE.TermCrossReference
 
     concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
     target_concept_curie: Optional[Union[str, ConceptConceptCurie]] = None
@@ -357,6 +362,9 @@ slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'],
 
 slots.omop_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/omop_concept_id'], name="omop_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/omop_concept_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.omop_concept_id, domain=None, range=Optional[int])
+
+slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'], name="concept_code", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/concept_code'),
+                   model_uri=MD_TERMINOLOGY_TROVE.concept_code, domain=None, range=str)
 
 slots.dbt_scd_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/dbt_scd_id'], name="dbt_scd_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/dbt_scd_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.dbt_scd_id, domain=None, range=Optional[str])

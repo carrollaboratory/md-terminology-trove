@@ -47,6 +47,12 @@ slots:
     required: true
     range: uri
     multivalued: false
+  curie_as_fhir_code:
+    title: Curie as FHIR code
+    description: True/false if the code inside FHIR is the curie or the actual code itself. Default should be the bare code.
+    default_value: false
+    range: bool
+    multivalued: false
   prefix:
     title: Canonical Curie Prefix
     description: The authoritative namespace prefix allocated to the vocabulary. Used to resolve compact identifiers (CURIEs) to their full semantic URIs or FHIR system URLs.

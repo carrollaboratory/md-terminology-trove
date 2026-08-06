@@ -485,6 +485,22 @@ slots:
     domain_of:
     - Concept
     range: integer
+  deprecated:
+    name: deprecated
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/deprecated
+    description: Deprecated T/F?
+    title: Deprecated
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/deprecated
+    range: boolean
+  replaced_by:
+    name: replaced_by
+    definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/replaced_by
+    description: Concept this concept was superceded by
+    title: Replaced By
+    from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
+    slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/replaced_by
+    range: Concept
   dbt_scd_id:
     name: dbt_scd_id
     definition_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/dbt_scd_id
@@ -716,5 +732,5 @@ metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
 source_file_date: '2026-08-04T14:32:33'
 source_file_size: 836
-generation_date: '2026-08-04T14:59:41'
+generation_date: '2026-08-06T16:04:01'
 

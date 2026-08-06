@@ -1,5 +1,5 @@
 # Auto generated from md_terminology_trove.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-08-04T14:59:35
+# Generation date: 2026-08-06T16:03:55
 # Schema: md-terminology-trove
 #
 # id: https://w3id.org/carrollaboratory/md-terminology-trove
@@ -56,8 +56,8 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Datetime, Integer, String, Uri, Uriorcurie
-from linkml_runtime.utils.metamodelcore import URI, URIorCURIE, XSDDateTime
+from linkml_runtime.linkml_model.types import Boolean, Datetime, Integer, String, Uri, Uriorcurie
+from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDateTime
 
 metamodel_version = "1.11.0"
 version = None
@@ -357,6 +357,12 @@ slots.concept_code = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/concept_code'],
 
 slots.omop_concept_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/omop_concept_id'], name="omop_concept_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/omop_concept_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.omop_concept_id, domain=None, range=Optional[int])
+
+slots.deprecated = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/deprecated'], name="deprecated", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/deprecated'),
+                   model_uri=MD_TERMINOLOGY_TROVE.deprecated, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.replaced_by = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/replaced_by'], name="replaced_by", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/replaced_by'),
+                   model_uri=MD_TERMINOLOGY_TROVE.replaced_by, domain=None, range=Optional[Union[str, ConceptConceptCurie]])
 
 slots.dbt_scd_id = Slot(uri=MD_TERMINOLOGY_TROVE['term-concept/dbt_scd_id'], name="dbt_scd_id", curie=MD_TERMINOLOGY_TROVE.curie('term-concept/dbt_scd_id'),
                    model_uri=MD_TERMINOLOGY_TROVE.dbt_scd_id, domain=None, range=Optional[str])

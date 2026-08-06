@@ -41,6 +41,14 @@ slots:
     title: OMOP Concept ID
     description: The OMOP Concept ID for the term, if applicable
     range: integer
+  deprecated:
+    title: Deprecated
+    description: Deprecated T/F?
+    range: boolean
+  replaced_by:
+    title: Replaced By
+    description: Concept this concept was superceded by
+    range: Concept
   dbt_scd_id:
     range: string
     description: "Reserved for dbt SCD Type 2 tracking. Kept NULL until dbt migration."
@@ -67,4 +75,3 @@ slots:
     description: Detailed description for the term
     range: string
     multivalued: false
-

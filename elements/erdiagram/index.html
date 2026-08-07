@@ -212,6 +212,7 @@ Concept {
     datetime dbt_valid_from  
     datetime dbt_valid_to  
     string definition  
+    boolean deprecated  
     string display  
     integer omop_concept_id  
 }
@@ -235,6 +236,7 @@ Vocabulary {
     uri vocabulary_uri  
 }
 
+Concept ||--|o Concept : "replaced_by"
 Concept ||--|| Vocabulary : "vocabulary_id"
 ConceptRelationship ||--|o Concept : "concept_curie, target_concept_curie"
 CrossReference ||--|o Concept : "concept_curie, target_concept_curie"

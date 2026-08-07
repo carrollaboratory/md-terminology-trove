@@ -1,5 +1,5 @@
 # Auto generated from md_terminology_trove.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-08-06T16:03:55
+# Generation date: 2026-08-07T12:16:39
 # Schema: md-terminology-trove
 #
 # id: https://w3id.org/carrollaboratory/md-terminology-trove
@@ -159,6 +159,8 @@ class Concept(YAMLRoot):
     omop_concept_id: Optional[int] = None
     display: Optional[str] = None
     definition: Optional[str] = None
+    deprecated: Optional[Union[bool, Bool]] = None
+    replaced_by: Optional[Union[str, ConceptConceptCurie]] = None
     dbt_valid_to: Optional[Union[str, XSDDateTime]] = None
     dbt_scd_id: Optional[str] = None
 
@@ -196,6 +198,12 @@ class Concept(YAMLRoot):
 
         if self.definition is not None and not isinstance(self.definition, str):
             self.definition = str(self.definition)
+
+        if self.deprecated is not None and not isinstance(self.deprecated, Bool):
+            self.deprecated = Bool(self.deprecated)
+
+        if self.replaced_by is not None and not isinstance(self.replaced_by, ConceptConceptCurie):
+            self.replaced_by = ConceptConceptCurie(self.replaced_by)
 
         if self.dbt_valid_to is not None and not isinstance(self.dbt_valid_to, XSDDateTime):
             self.dbt_valid_to = XSDDateTime(self.dbt_valid_to)

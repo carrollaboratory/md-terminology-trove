@@ -492,6 +492,9 @@ slots:
     title: Deprecated
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/deprecated
+    owner: Concept
+    domain_of:
+    - Concept
     range: boolean
   replaced_by:
     name: replaced_by
@@ -500,6 +503,9 @@ slots:
     title: Replaced By
     from_schema: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept
     slot_uri: https://w3id.org/carrollaboratory/md-terminology-trove/term-concept/replaced_by
+    owner: Concept
+    domain_of:
+    - Concept
     range: Concept
   dbt_scd_id:
     name: dbt_scd_id
@@ -687,6 +693,8 @@ classes:
     - omop_concept_id
     - display
     - definition
+    - deprecated
+    - replaced_by
     - dbt_updated_at
     - dbt_valid_from
     - dbt_valid_to
@@ -732,5 +740,5 @@ metamodel_version: 1.11.0
 source_file: md_terminology_trove.yaml
 source_file_date: '2026-08-04T14:32:33'
 source_file_size: 836
-generation_date: '2026-08-06T16:04:01'
+generation_date: '2026-08-07T12:16:46'
 

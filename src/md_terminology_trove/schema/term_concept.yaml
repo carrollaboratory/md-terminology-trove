@@ -17,6 +17,8 @@ classes:
       - omop_concept_id
       - display
       - definition
+      - deprecated
+      - replaced_by
       - dbt_updated_at
       - dbt_valid_from
       - dbt_valid_to

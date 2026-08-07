@@ -186,6 +186,8 @@ class Concept(ConfiguredBaseModel):
     omop_concept_id: Optional[int] = Field(default=None, title="OMOP Concept ID", description="""The OMOP Concept ID for the term, if applicable""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
     display: Optional[str] = Field(default=None, title="Display", description="""The friendly display string of the coded term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
     definition: Optional[str] = Field(default=None, title="Definition", description="""Detailed description for the term""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    deprecated: Optional[bool] = Field(default=None, title="Deprecated", description="""Deprecated T/F?""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
+    replaced_by: Optional[str] = Field(default=None, title="Replaced By", description="""Concept this concept was superceded by""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
     dbt_updated_at: datetime  = Field(default=..., description="""The timestamp when the source record was last changed, used by dbt to detect if an update has occurred.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
     dbt_valid_from: datetime  = Field(default=..., description="""The timestamp indicating when this specific row's historical version became active.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
     dbt_valid_to: Optional[datetime ] = Field(default=None, description="""The timestamp indicating when this historical version was superseded. It remains NULL if the row is the currently active version.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Concept']} })
